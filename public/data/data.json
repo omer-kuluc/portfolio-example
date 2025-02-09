@@ -1,0 +1,46 @@
+{
+  "worksData": [
+    {
+      "id": 1,
+      "title": "Product list with chart",
+      "image": "/img/product-list-with-chart-image.png",
+      "githubLink": "https://github.com/omer-kuluc/product-list",
+      "liveLink": "https://product-list-five-iota.vercel.app/"
+    },
+    {
+      "id": 2,
+      "title": "Product list with chart",
+      "image": "/img/product-list-with-chart-image.png",
+      "githubLink": "https://github.com/omer-kuluc/product-list",
+      "liveLink": "https://product-list-five-iota.vercel.app/"
+    },
+    {
+      "id": 3,
+      "title": "Product list with chart",
+      "image": "/img/product-list-with-chart-image.png",
+      "githubLink": "https://github.com/omer-kuluc/product-list",
+      "liveLink": "https://product-list-five-iota.vercel.app/"
+    },
+    {
+      "id": 4,
+      "title": "Product list with chart",
+      "image": "/img/product-list-with-chart-image.png",
+      "githubLink": "https://github.com/omer-kuluc/product-list",
+      "liveLink": "https://product-list-five-iota.vercel.app/"
+    },
+    {
+      "id": 5,
+      "title": "Product list with chart",
+      "image": "/img/product-list-with-chart-image.png",
+      "githubLink": "https://github.com/omer-kuluc/product-list",
+      "liveLink": "https://product-list-five-iota.vercel.app/"
+    },
+    {
+      "id": 6,
+      "title": "Product list with chart",
+      "image": "/img/product-list-with-chart-image.png",
+      "githubLink": "https://github.com/omer-kuluc/product-list",
+      "liveLink": "https://product-list-five-iota.vercel.app/"
+    }
+  ]
+}
