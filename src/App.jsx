@@ -52,7 +52,7 @@ function App() {
         setData(json.worksData ?? []);
       } catch (error) {
         console.error("Fetching error:", error);
-        setData([]); // Hata olursa boş array olarak ayarla
+        setData([]);
       }
     }
 
@@ -101,22 +101,22 @@ function Header() {
         <ul className="navbar-items">
           <li>
             <a href="#/" className={`nav-item ${activePage === "#/" ? "active" : ""}`}>
-              <p className="text">Anasayfa</p>
+              Anasayfa
             </a>
           </li>
           <li>
             <a href="#/about" className={`nav-item ${activePage === "#/about" ? "active" : ""}`}>
-              <p className="text">Hakkımda</p>
+              Hakkımda
             </a>
           </li>
           <li>
             <a href="#/works" className={`nav-item ${activePage === "#/works" ? "active" : ""}`}>
-              <p className="text">Projelerim</p>
+              Projelerim
             </a>
           </li>
           <li>
             <a href="#/contact" className={`nav-item ${activePage === "#/contact" ? "active" : ""}`}>
-              <p className="text">İletişim</p>
+              İletişim
             </a>
           </li>
         </ul>

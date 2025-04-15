@@ -2,45 +2,52 @@
   "worksData": [
     {
       "id": 1,
-      "title": "Product list with chart",
+      "title": "Product List with Chart",
       "image": "/img/product-list-with-chart-image.png",
       "githubLink": "https://github.com/omer-kuluc/product-list",
       "liveLink": "https://product-list-five-iota.vercel.app/"
     },
     {
       "id": 2,
-      "title": "Product list with chart",
-      "image": "/img/product-list-with-chart-image.png",
-      "githubLink": "https://github.com/omer-kuluc/product-list",
-      "liveLink": "https://product-list-five-iota.vercel.app/"
+      "title": "Dictionary Web App",
+      "image": "/img/dictionary-web-app-image.png",
+      "githubLink": "https://github.com/omer-kuluc/dictionary-web-app-react",
+      "liveLink": "https://dictionary-web-app-react-omega.vercel.app/"
     },
     {
       "id": 3,
-      "title": "Product list with chart",
-      "image": "/img/product-list-with-chart-image.png",
-      "githubLink": "https://github.com/omer-kuluc/product-list",
-      "liveLink": "https://product-list-five-iota.vercel.app/"
+      "title": "Entertainment Web App",
+      "image": "/img/entertainment-web-app-image.png",
+      "githubLink": "https://github.com/omer-kuluc/entertainment-app-react",
+      "liveLink": "https://entertainment-app-react-pi.vercel.app/"
     },
     {
       "id": 4,
-      "title": "Product list with chart",
-      "image": "/img/product-list-with-chart-image.png",
-      "githubLink": "https://github.com/omer-kuluc/product-list",
-      "liveLink": "https://product-list-five-iota.vercel.app/"
+      "title": "Quiz App",
+      "image": "/img/quiz-app-react-image.png",
+      "githubLink": "https://github.com/omer-kuluc/quiz-app-react",
+      "liveLink": "https://quiz-app-react-murex-ten.vercel.app/"
     },
     {
       "id": 5,
-      "title": "Product list with chart",
-      "image": "/img/product-list-with-chart-image.png",
-      "githubLink": "https://github.com/omer-kuluc/product-list",
-      "liveLink": "https://product-list-five-iota.vercel.app/"
+      "title": "Product Feedback App",
+      "image": "/img/product-feedback-app-image.png",
+      "githubLink": "https://github.com/acunmedyaakademi/gaye-buse-omer-akif-product-feedback-app",
+      "liveLink": "https://gaye-buse-omer-akif-product-feedback-app.vercel.app/"
     },
     {
       "id": 6,
-      "title": "Product list with chart",
-      "image": "/img/product-list-with-chart-image.png",
-      "githubLink": "https://github.com/omer-kuluc/product-list",
-      "liveLink": "https://product-list-five-iota.vercel.app/"
+      "title": "Kanban Task App",
+      "image": "/img/kanban-task-management-image.png",
+      "githubLink": "https://github.com/acunmedyaakademi/Alfa-KanbanWepApp",
+      "liveLink": "https://alfa-kanban-wep-app.vercel.app/"
+    },
+    {
+      "id": 7,
+      "title": "Memory Game",
+      "image": "/img/memory-game-react-image.png",
+      "githubLink": "https://github.com/omer-kuluc/memory-game-react",
+      "liveLink": "https://memory-game-react-chi.vercel.app/"
     }
   ]
 }
