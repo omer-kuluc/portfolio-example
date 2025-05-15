@@ -78,7 +78,7 @@ a {
 .container {
   width: 100%;
   min-height: 100vh;
-  background-color: rgb(25, 25, 109);
+
 }
 
 @keyframes gradientBG {
@@ -99,32 +99,68 @@ a {
   }
 }
 
+/*header-start*/
+
+/* Ana navbar cam efektli, sticky */
 .navbar {
-  background-color: black;
+  background-color: #27548A;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  animation: fadeDown 0.6s ease forwards;
+  padding-inline: 25px;
 }
 
-.navbar ul {
-  list-style: none;
-  background-color: #b11b1b;
-}
-
-.navbar-items {
+/* İçerik hizalama */
+.navbar-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-inline: 20px;
+  padding: 12px 24px;
 }
 
+/* Marka metni (sol taraf) */
+.brand {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* Menü listesi */
+.navbar-items {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bireysel item */
 .navbar-items li {
-  padding: 10px;
+  padding: 8px 0;
+  transition: transform 0.2s ease-in-out;
 }
 
+.navbar-items li:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Link stilleri */
 .nav-item {
   position: relative;
   display: inline-block;
-  color: #fff;
+  color: #DDA853;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
 }
 
+/* Alt çizgi animasyonu */
 .nav-item::after {
   content: "";
   position: absolute;
@@ -134,6 +170,10 @@ a {
   height: 3px;
   background-color: #bbcedd;
   transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.nav-item:hover {
+  color: #b6def3;
 }
 
 .nav-item:hover::after {
@@ -146,27 +186,108 @@ a {
 }
 
 .nav-item.active {
-  background: none;
-  color: #fff;
+  color: #F3F3E0;
   font-weight: bold;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
 }
 
+/* Fade animasyonu */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 
-
-.navbar p {
-  padding: 5px;
-  text-decoration: none;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+/* hamburger ikonunun temel hâli (masaüstünde görünmez) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 20
+}
+
+.hamburger span {
+  width: 24px;
+  height: 3px;
+  background: #fff;
+  transition: .3s;
+  border-radius: 2px
+}
+
+.hamburger span.open:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px)
+}
+
+.hamburger span.open:nth-child(2) {
+  opacity: 0
+}
+
+.hamburger span.open:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px)
+}
+
+/* navbar “mobile” sınıfı varsa: hamburger görünür, liste kapalı pozisyona çekilir */
+.navbar.mobile .hamburger {
+  display: flex
+}
+
+/* listeyi dikey + off‑canvas hâle getir */
+.navbar.mobile .navbar-items {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  gap: 16px;
+  background: rgba(0, 0, 0, .93);
+  padding: 1rem 0;
+  transform: translateY(-200%);
+  opacity: 0;
+  pointer-events: none;
+  transition: all .4s ease;
+  z-index: 15;
+  text-align: center;
+}
+
+.navbar.mobile .navbar-items.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.navbar.mobile .navbar-items li {
+  padding: 8px 0
+}
+
+/* masaüstü → mobile geçişinde boşluk problemi olmasın diye brand ve hamburger hizalaması */
+.navbar.mobile .navbar-inner {
+  padding: 12px 16px
+}
+
+/*header-end*/
+
 
 
 .home-page-container {
-  background-image: url('/img/intro-background.png');
-  background-size: cover;
+  /* background-image: url('/img/main-background.png');
+  background-repeat: no-repeat;
+  background-position: 90% 99%;
+  background-size: cover; */
   min-height: 100vh;
   padding: 10px;
   display: grid;
   gap: 15px;
 }
+
+
+
 
 .profile-area {
   margin-bottom: 25px;
@@ -251,7 +372,7 @@ a {
 }
 
 
-.intro-text {
+.intro-text-area {
   border: 2px solid rgb(66, 66, 148);
   padding: 10px 20px;
   border-radius: 10px;
@@ -262,7 +383,7 @@ a {
 
 
 /* Parlaklık efekti */
-.intro-text::after {
+.intro-text-area::after {
   content: "";
   position: absolute;
   top: 0;
@@ -274,7 +395,7 @@ a {
 }
 
 
-.intro-text {
+.intro-text-area {
   position: relative;
   overflow: hidden;
 }
@@ -339,8 +460,11 @@ a {
 
 .about-header {
   text-align: center;
-  color: white;
   padding-block: 25px;
+
+  h2 {
+    text-align: center;
+  }
 }
 
 
@@ -348,6 +472,7 @@ a {
 .about-section {
   display: grid;
   gap: 15px;
+  padding-inline: 15px
 }
 
 
@@ -356,6 +481,9 @@ a {
   transform: scale(0.8);
   opacity: 0;
   transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 2px solid rgb(236, 230, 230);
 }
 
 .about-section>div.show {
@@ -364,14 +492,6 @@ a {
 }
 
 
-
-
-
-
-.about-section div {
-  padding: 5px 10px;
-  border-radius: 20px;
-}
 
 .about-section h3 {
   margin-bottom: 10px;
@@ -383,49 +503,60 @@ a {
 }
 
 .about-school-section {
-  background-color: #1b40a5;
-  color: white;
+  background-image: url('/img/green-background.png');
+  background-size: cover;
+  background-position: 99% 90%;
+  color: red;
 
   h3 {
-    color: rgb(223, 243, 196);
+    color: #3b0cbe;
+
   }
+
 }
 
 .about-course-section {
-  background-color: #b5cdf1;
-  /* background-color: #85afee; */
+  background-image: url('/img/purple-background.png');
+  background-size: cover;
+  background-position: 90% 50%;
 
-  color: rgb(41, 36, 36);
+  color: #000000B2;
+
 
   h3 {
-    color: #e61313;
+    color: #000000;
   }
 }
 
 .about-front-end-section {
-  /* background-color: #d0ddf1; */
-  background-color: #3c5883;
-
-  color: white;
+  background-image: url('/img/yellow-bacgkround.png');
+  background-size: cover;
+  background-position: 90% 50%;
+  color: #000000B2;
+  ;
 
   h3 {
-    color: rgb(201, 212, 44);
+    color: #000000B2;
+
   }
 }
 
 .about-future-section {
-  background-color: #dbe4f3;
-  color: rgb(56, 51, 51);
+  background-image: url('/img/green-background.png');
+  background-size: cover;
+  background-position: 10% 50%;
+
+  color: #000000B2;
 
   h3 {
-    color: #3b0cbe;
+    color: #000000;
   }
 }
 
 
 
 /*about-end*/
-.work-cards {
+/* .work-cards {
   padding-top: 10px;
   background-image: url('/img/work-card-background.png');
   background-size: cover;
@@ -498,11 +629,9 @@ a {
   color: white;
   border: 2px solid rgb(233, 211, 211);
 
-}
+} */
 
 .contact-inner {
-  background-image: url('/img/contact-background.png');
-  background-size: cover;
   min-height: 100vh;
   padding: 5px 10px;
 }
@@ -611,7 +740,273 @@ a {
   height: 25px;
 }
 
+/*intro-start*/
 
+/* Intro Ekranı */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  background-color: #121212;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  animation: slideUpReveal 3.5s ease-in-out forwards;
+  animation-delay: 5s;
+  overflow: hidden;
+}
+
+/* Intro Yazısı */
+.intro-text {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  opacity: 0;
+  animation: textDropFade 2s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+
+/* Animasyonlar */
+@keyframes slideUpReveal {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes textDropFade {
+  0% {
+    transform: translateY(-50px) scale(0.8);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* intro ekranında geri sayım için */
+.count-up {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #ffffff;
+  animation: countFadeIn 1.5s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes countFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/*intro-end*/
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: fadeInUp 1.5s ease forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/*projects-animation start*/
+.works-page {
+  overflow-x: hidden;
+}
+
+.keyboard-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.keyboard-container {
+  background: radial-gradient(circle at top left, #f0f0f0, #d3d3d3);
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  border-radius: 16px;
+  justify-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  min-height: 150px;
+}
+
+.key {
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  border-radius: 12px;
+  box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+  padding: 1rem 1.2rem;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  color: #333;
+  user-select: none;
+  transform: translateY(-20px);
+  opacity: 0;
+  animation: drop 0.4s ease forwards;
+  border: 2px solid transparent;
+}
+
+.key:hover {
+  box-shadow: inset 2px 2px 5px #d1d1d1, inset -2px -2px 5px #ffffff;
+  background-color: #27548A;
+  color: #F3F3E0;
+  transform: translateY(2px);
+}
+
+.key:active {
+  transform: translateY(4px);
+  box-shadow: inset 2px 2px 5px #aaa, inset -2px -2px 5px #fff;
+  /* background: #ddd; */
+}
+
+.key.active-key {
+  border: 2px solid #19d3ba;
+  /* background-color: #007bff; */
+  color: rgb(219, 176, 83);
+  box-shadow: 0 0 8px rgba(127, 155, 185, 0.6);
+}
+
+/* Giriş animasyonu */
+@keyframes drop {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.project-detail-area {
+  margin-top: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  overflow: hidden;
+  position: relative;
+  min-height: 150px;
+  margin-bottom: 50px;
+  /* yükseklik sabitlendi */
+}
+
+/* Animasyonlar için yardımcı sınıflar */
+.slide-out-right {
+  animation: slideOutRight 0.4s forwards;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.4s forwards;
+}
+
+/* Animasyon keyframeleri */
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.project-image {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  margin: 1rem auto;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.project-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.project-buttons a {
+  padding: 0.6rem 1rem;
+  background-color: #333;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.project-buttons a:hover {
+  background-color: #111;
+  transform: scale(1.05);
+}
+
+/* Navigasyon okları */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(51, 51, 51, 0.8);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+}
+
+.nav-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.nav-arrow.left {
+  left: -10px;
+}
+
+.nav-arrow.right {
+  right: -10px;
+}
+
+
+
+/*projects-animation end*/
 
 @media (width >=768px) {
 
@@ -626,15 +1021,61 @@ a {
     gap: 25px;
   }
 
-  .intro-text {
+  .intro-text-area {
     font-size: 20px;
   }
 
-  .about-section {
-    grid-template-columns: repeat(2, 1fr);
+  /*projects-start*/
+
+  .works-page {
+    overflow-x: hidden;
   }
 
-  .work-cards {
+  .keyboard-container {
+    background: radial-gradient(circle at top left, #f0f0f0, #d3d3d3);
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    border-radius: 16px;
+    justify-items: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    /* height: 245px; */
+  }
+
+  .project-detail-area {
+    margin-top: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    overflow: hidden;
+    position: relative;
+    min-height: 150px;
+    margin-bottom: 50px;
+    /* yükseklik sabitlendi */
+  }
+
+  .project-image {
+    max-height: 250px;
+    object-fit: contain;
+  }
+
+  /*projects-end*/
+
+
+
+  .about-section {
+    grid-template-columns: repeat(2, 1fr);
+
+
+  }
+
+  /* .work-cards {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -647,7 +1088,7 @@ a {
     margin: 15px auto;
     width: 100%;
     height: 193px;
-  }
+  } */
 
 
   .contact-inner {
@@ -677,11 +1118,11 @@ a {
     margin-bottom: 125px;
   }
 
-  .work-cards {
+  /* .work-cards {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
     padding: 20px 25px;
-  }
+  } */
 
   .contact-content {
     margin-top: 100px;
@@ -696,4 +1137,191 @@ a {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
+
+
+  .about-section>div {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    padding: 15px 25px;
+  }
+
+  .about-section>div.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .about-section {
+
+    p,
+    h3 {
+      text-align: center;
+    }
+
+  }
+
+  /*projects-animation start*/
+  .works-page {
+    overflow-x: hidden;
+  }
+
+  .keyboard-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+
+  .keyboard-container {
+    background: radial-gradient(circle at top left, #f0f0f0, #d3d3d3);
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    border-radius: 16px;
+    justify-items: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    /* height: 245px; */
+  }
+
+  .key {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+    padding: 1rem 1.2rem;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    color: #333;
+    user-select: none;
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: drop 0.4s ease forwards;
+  }
+
+  .key:hover {
+    box-shadow: inset 2px 2px 5px #d1d1d1, inset -2px -2px 5px #ffffff;
+    background: #1772e2;
+    color: #f3e0e9;
+    transform: translateY(2px);
+  }
+
+  .key:active {
+    transform: translateY(4px);
+    box-shadow: inset 2px 2px 5px #aaa, inset -2px -2px 5px #fff;
+    /* background: #ddd; */
+    background-color: #27588d;
+
+  }
+
+  .key.active-key {
+    border: 2px solid #19d3ba;
+    background-color: #27588d;
+    color: rgb(219, 176, 83);
+    box-shadow: 0 0 8px rgba(127, 155, 185, 0.6);
+  }
+
+  .key.active-key:hover {
+    color: white;
+  }
+
+  /* Giriş animasyonu */
+  @keyframes drop {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .project-detail-area {
+    margin-top: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    overflow: hidden;
+    position: relative;
+    min-height: 150px;
+    margin-bottom: 50px;
+    /* yükseklik sabitlendi */
+  }
+
+  /* Animasyonlar için yardımcı sınıflar */
+  .slide-out-right {
+    animation: slideOutRight 0.4s forwards;
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.4s forwards;
+  }
+
+  /* Animasyon keyframeleri */
+  @keyframes slideOutRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .project-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    margin: 1rem auto;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .project-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .project-buttons a {
+    padding: 0.6rem 1rem;
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .project-buttons a:hover {
+    background-color: #111;
+    transform: scale(1.05);
+  }
+
+  /*projects-animation end*/
+
+
+
+
+
+
+
 }

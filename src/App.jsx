@@ -35,93 +35,110 @@ function getPage(url) {
 const PageContext = createContext(null);
 
 function App() {
-
   const [data, setData] = useState(null);
-
-  const [url, setUrl] = useState(location.hash.substring(1) || '/');
+  const [url, setUrl] = useState(location.hash.substring(1) || "/");
+  const [showIntro, setShowIntro] = useState(true);
+  const [count, setCount] = useState(0);
 
   const page = getPage(url);
 
   useEffect(() => {
     async function getData() {
       try {
-        const response = await fetch('/data/data.json');
+        const response = await fetch("/data/data.json");
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
         const json = await response.json();
         setData(json.worksData ?? []);
       } catch (error) {
-        console.error("Fetching error:", error);
+        console.error("Veri çekme hatası:", error);
         setData([]);
       }
     }
-
     getData();
   }, []);
 
-
-
   useEffect(() => {
-    const handleHashChange = () => {
-      setUrl(location.hash.substring(1));
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-
-  return (
-    <>
-      <Header />
-      <div className="container">
-        <PageContext.Provider value={page}>
-          {page.url === "/works" ? <Works data={data} /> : page.component}
-        </PageContext.Provider>
-      </div>
-    </>
-  )
-
-}
-
-function Header() {
-  const [activePage, setActivePage] = useState(location.hash || "#/");
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      setActivePage(location.hash || "#/");
-    };
+    const handleHashChange = () => setUrl(location.hash.substring(1));
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
+  useEffect(() => {
+    if (count < 100) {
+      const timer = setTimeout(() => setCount(prev => prev + 1), 40);
+      return () => clearTimeout(timer);
+    } else {
+      setTimeout(() => {
+        setShowIntro(false);
+      }, 4750);
+    }
+  }, [count]);
+
   return (
     <>
-      <div className="navbar">
-        <ul className="navbar-items">
-          <li>
-            <a href="#/" className={`nav-item ${activePage === "#/" ? "active" : ""}`}>
-              Anasayfa
-            </a>
-          </li>
-          <li>
-            <a href="#/about" className={`nav-item ${activePage === "#/about" ? "active" : ""}`}>
-              Hakkımda
-            </a>
-          </li>
-          <li>
-            <a href="#/works" className={`nav-item ${activePage === "#/works" ? "active" : ""}`}>
-              Projelerim
-            </a>
-          </li>
-          <li>
-            <a href="#/contact" className={`nav-item ${activePage === "#/contact" ? "active" : ""}`}>
-              İletişim
-            </a>
-          </li>
+      {showIntro && (
+        <div className="intro-screen">
+          <div className="intro-text">ÖMER KULUÇ | Front-End Developer</div>
+          <div className="count-up">{count}%</div>
+        </div>
+      )}
+      {!showIntro && (
+        <div className="fade-in">
+          <Header />
+          <div className="container">
+            <PageContext.Provider value={page}>
+              {page.url === "/works" ? <Works data={data} /> : page.component}
+            </PageContext.Provider>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+
+function Header() {
+  const [activePage, setActivePage] = useState(location.hash || "#/");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
+
+  /* ↻ ekran boyutu değişince mobil mi kontrol et */
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 500);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  /* ↻ hash değişince aktif link & menüyü kapat */
+  useEffect(() => {
+    const onHash = () => { setActivePage(location.hash || "#/"); setMenuOpen(false); };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  /* .navbar’a “mobile” sınıfı ekleyerek CSS’i tetikleyeceğiz */
+  const navbarCls = `navbar${isMobile ? " mobile" : ""}`;
+
+  return (
+    <div className={navbarCls}>
+      <div className="navbar-inner">
+        <div className="brand">Ömer KULUÇ</div>
+
+        {/* hamburger butonu – masaüstünde CSS ile gizli */}
+        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          <span className={menuOpen ? "open" : ""}></span>
+          <span className={menuOpen ? "open" : ""}></span>
+          <span className={menuOpen ? "open" : ""}></span>
+        </div>
+
+        <ul className={`navbar-items ${menuOpen ? "open" : ""}`}>
+          <li><a href="#/" className={`nav-item ${activePage === "#/" ? "active" : ""}`}>Anasayfa</a></li>
+          <li><a href="#/about" className={`nav-item ${activePage === "#/about" ? "active" : ""}`}>Hakkımda</a></li>
+          <li><a href="#/works" className={`nav-item ${activePage === "#/works" ? "active" : ""}`}>Projelerim</a></li>
+          <li><a href="#/contact" className={`nav-item ${activePage === "#/contact" ? "active" : ""}`}>İletişim</a></li>
         </ul>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -136,7 +153,7 @@ function Home() {
             <img src="/img/arrow-icon.svg" alt="" />
             <h2 className="name-tag">Ömer <br />KULUÇ</h2>
           </div>
-          <div className="intro-text">
+          <div className="intro-text-area">
             Merhaba,
             Portfolyo sayfama hoş geldiniz. Ben, yeni teknolojileri keşfetmeye meraklı ve tutkulu bir Jr. Front-End Developer'ım.
             Web geliştirme dünyasındaki yolculuğum heyecan verici bir deneyim oldu ve her geçen gün kendimi daha da geliştirmeye çalışıyorum.
@@ -154,9 +171,33 @@ function Home() {
 }
 
 function About() {
-  useEffect(() => {
-    const cards = document.querySelectorAll(".about-section > div");
+  const sectionRefs = useRef([]);
 
+  const sections = [
+    {
+      title: "Bilgisayar Mühendisliği Mezunu ve Yazılım Temelleri",
+      className: "about-school-section",
+      content: `Bilgisayar mühendisliği eğitimiyle yazılıma sağlam bir temel attım. Kodlamada sadece çalışabilirlik değil, aynı zamanda verimlilik ve sürdürülebilirlik benim için öncelikli. Yazılım mimarisi ve optimizasyona özel bir ilgim var.`
+    },
+    {
+      title: "Acunmedya Akademi'de Front-End Eğitimi",
+      className: "about-course-section",
+      content: `Acunmedya Akademi'de HTML, CSS, JavaScript ve React üzerine yoğun bir eğitim aldım. Kullanıcı dostu arayüzler geliştirme, API ile veri yönetimi gibi konularda proje deneyimi kazandım.`
+    },
+    {
+      title: "Modern Web Teknolojilerine Tutkulu Bir Front-End Geliştirici",
+      className: "about-front-end-section",
+      content: `Teknoloji tutkum beni front-end geliştirmeye yönlendirdi. React ile etkileşimli, performanslı arayüzler geliştiriyorum. Kodun temiz, sürdürülebilir ve ölçeklenebilir olması benim için önemli.`
+    },
+    {
+      title: "Front-End Geliştirici Olarak Kariyer Hedefim",
+      className: "about-future-section",
+      content: `Hedefim, kullanıcı deneyimi yüksek projelerde yer almak. Yeni teknolojileri takip ediyor, öğrenmeye açık ve yaratıcı çözümler üreten biri olarak sektörde kalıcı işler yapmak istiyorum.`
+    }
+  ];
+
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -168,127 +209,124 @@ function About() {
       { threshold: 0.2 }
     );
 
-    cards.forEach((card) => observer.observe(card));
+    sectionRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
 
     return () => observer.disconnect();
   }, []);
+
   return (
     <>
       <h2 className="about-header">HAKKIMDA</h2>
       <div className="about-section">
-        <div className="about-school-section">
-          <h3>Bilgisayar Mühendisliği Mezunu ve Yazılım Temelleri</h3>
-          <p>
-            Bilgisayar mühendisliği mezunu olarak, yazılım geliştirme süreçlerine güçlü bir akademik temel
-            ile adım attım. Eğitimim boyunca programlama prensipleri, problem çözme teknikleri ve yazılım
-            geliştirme metodolojileri üzerine çalıştım. Kod yazarken sadece doğru çalışmasını değil, aynı
-            zamanda verimli, okunabilir ve sürdürülebilir olmasını da ön planda tutuyorum. Yazılım mimarisi
-            ve optimizasyon konularına duyduğum ilgi, geliştirdiğim projelerde performans ve ölçeklenebilirlik
-            açısından en iyi uygulamaları benimsememi sağladı.
-          </p>
-        </div>
-        <div className="about-course-section">
-          <h3>Acunmedya Akademi'de Front-End Eğitimi</h3>
-          <p>Acunmedya Akademi’de aldığım front-end eğitimiyle modern web teknolojilerine yönelik güçlü bir
-            altyapı kazandım. HTML, CSS ve JavaScript kullanarak kullanıcı dostu ve estetik arayüzler oluşturma
-            becerisi edindim. JavaScript'in asenkron yapısını, DOM manipülasyonunu ve state yönetimini etkin bir
-            şekilde kullanarak dinamik web uygulamaları geliştirdim. React ile komponent bazlı mimariyi öğrenerek,
-            yeniden kullanılabilir ve ölçeklenebilir arayüzler oluşturma konusunda deneyim kazandım. Ayrıca,
-            API entegrasyonu ve veri yönetimi gibi konularda pratik projeler geliştirerek öğrendiklerimi gerçek
-            dünya senaryolarına uygulama fırsatı buldum.</p>
-        </div>
-        <div className="about-front-end-section">
-          <h3>Modern Web Teknolojilerine Tutkulu Bir Front-End Geliştirici</h3>
-          <p>Teknolojiye olan ilgim ve yazılıma duyduğum merak, beni front-end geliştirme alanında uzmanlaşmaya
-            yönlendirdi. Kullanıcı odaklı ve etkileşimli web uygulamaları geliştirmek, hem teknik becerilerimi
-            kullanabileceğim hem de yaratıcı çözümler üretebileceğim bir alan sunuyor. HTML, CSS ve JavaScript’in
-            yanı sıra React ile modern ve performanslı arayüzler oluşturma konusunda kendimi sürekli
-            geliştiriyorum. Kodun sadece çalışmasını değil, aynı zamanda ölçeklenebilir, temiz ve sürdürülebilir
-            olmasını önemsiyorum. Yeni teknolojileri keşfetmek, problem çözme yeteneğimi güçlendirmek ve etkili
-            kullanıcı deneyimleri sunan projeler geliştirmek benim için bir tutkudan daha fazlası.</p>
-        </div>
-        <div className="about-future-section">
-          <h3>Front-End Geliştirici Olarak Kariyer Hedefim</h3>
-          <p>Yazılım dünyasında front-end geliştirici olarak kariyerime başlamayı hedefliyorum. Kullanıcı
-            deneyimi odaklı, hızlı ve erişilebilir web arayüzleri geliştirmek benim için öncelikli bir konu.
-            Yeni teknolojileri takip ederek kendimi sürekli geliştirmeye ve sektördeki en iyi uygulamaları
-            projelerime entegre etmeye özen gösteriyorum. Takım çalışmasına yatkın, problem çözme yeteneği
-            yüksek ve yaratıcı çözümler üreten bir yazılımcı olarak, yenilikçi projelerde yer almayı ve
-            sektörde kalıcı bir iz bırakmayı amaçlıyorum.
-          </p>
-        </div>
-      </div>
-    </>
-  )
-}
-
-function Works({ data }) {
-
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
-
-  useEffect(() => {
-    if (!isFirstLoad) return;
-
-    const workCards = document.querySelectorAll(".work-card");
-
-    // Kartları sırayla döndürerek açma efekti
-    setTimeout(() => {
-      workCards.forEach((card, index) => {
-        setTimeout(() => {
-          card.classList.add("flipped");
-        }, index * 400);
-      });
-    }, 700);
-
-    // Animasyonun tekrar çalışmasını önlemek için state güncelle
-    setIsFirstLoad(false);
-  }, [isFirstLoad]);
-
-
-
-  if (!data) {
-    return <div>Loading...</div>
-  }
-
-  return (
-    <>
-
-      <div className="work-cards">
-        {data.map((x) => (
-          <Work key={x.id} {...x} />
+        {sections.map((section, i) => (
+          <div
+            key={i}
+            ref={(el) => (sectionRefs.current[i] = el)}
+            className={section.className}
+          >
+            <h3>{section.title}</h3>
+            <p>{section.content}</p>
+          </div>
         ))}
       </div>
     </>
-  )
+  );
 }
 
-function Work({ title, image, liveLink, githubLink }) {
+function Works({ data }) {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [animating, setAnimating] = useState(false);
+  const [animationClass, setAnimationClass] = useState("slide-in-left");
+  const [currentProject, setCurrentProject] = useState(null);
+  const detailRef = useRef(null); // 👈 Detay alanı referansı
+
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    if (!currentProject) {
+      setCurrentProject(selectedProject);
+      setAnimationClass("slide-in-left");
+      return;
+    }
+
+    if (selectedProject.id === currentProject.id) return;
+
+    setAnimating(true);
+    setAnimationClass("slide-out-right");
+
+    const timeout = setTimeout(() => {
+      setCurrentProject(selectedProject);
+      setAnimationClass("slide-in-left");
+      setAnimating(false);
+
+      // 🌐 Sadece mobilde scroll
+      if (window.innerWidth < 768 && detailRef.current) {
+        detailRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [selectedProject]);
+
+  const handleNext = () => {
+    if (!currentProject) return;
+    const currentIndex = data.findIndex((p) => p.id === currentProject.id);
+    const nextIndex = (currentIndex + 1) % data.length;
+    setSelectedProject(data[nextIndex]);
+  };
+
+  const handlePrev = () => {
+    if (!currentProject) return;
+    const currentIndex = data.findIndex((p) => p.id === currentProject.id);
+    const prevIndex = (currentIndex - 1 + data.length) % data.length;
+    setSelectedProject(data[prevIndex]);
+  };
+
+  if (!data || data.length === 0) {
+    return <div className="loading-text">Projeler yükleniyor...</div>;
+  }
+
   return (
-    <>
-      <div className="work-card">
-        <a href={liveLink} target="blank" rel="noopener noreferrer">
-          <p>{title}</p>
-          <img className="work-card-image" src={image} alt="" />
-        </a>
-        <a href={githubLink} target="blank" rel="noopener noreferrer">
-          <button>
-            Kodları Görüntüle
-            <img src="" alt="" />
-          </button>
-        </a>
-        <a href={liveLink} target="blank" rel="noopener noreferrer">
-          <button>Projeyi Görüntüle</button>
-        </a>
+    <div className="works-page">
+      <div className="keyboard-container">
+        {data.map((project, index) => (
+          <div
+            key={project.id}
+            className={`key ${currentProject?.id === project.id ? "active-key" : ""}`}
+            style={{ animationDelay: `${index * 0.05}s` }}
+            onClick={() => setSelectedProject(project)}
+          >
+            {project.title}
+          </div>
+        ))}
       </div>
-    </>
-  )
-}
 
+      {currentProject && (
+        <div ref={detailRef} className={`project-detail-area ${animationClass}`}>
+          <button className="nav-arrow left" onClick={handlePrev}>‹</button>
+
+          <img
+            src={currentProject.image}
+            alt={currentProject.title}
+            className="project-image"
+          />
+          <div className="project-buttons">
+            <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer">
+              🌐 Canlı Gör
+            </a>
+            <a href={currentProject.githubLink} target="_blank" rel="noopener noreferrer">
+              💻 GitHub
+            </a>
+          </div>
+
+          <button className="nav-arrow right" onClick={handleNext}>›</button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function Contact() {
   return (
