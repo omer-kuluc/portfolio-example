@@ -332,37 +332,33 @@ function Contact() {
   return (
     <>
       <div className="contact-inner">
-        <h2>İLETİŞİM</h2>
+        <h2 className="contact-header">İLETİŞİM</h2>
         <div className="contact-content">
+          <img className="profil-photo" src="/img/profil.jpg" alt="Profil Fotoğrafı" />
           <div className="contact-text">
-            <p>
-              Teknolojiye ve sürekli öğrenmeye olan ilgimle her zaman yeni projelere, yenilikçi
-              fikirlere ve iş birliklerine açığım. Yazılım dünyasındaki gelişmeleri takip etmek,
-              farklı bakış açılarıyla fikir alışverişinde bulunmak ve yaratıcı çözümler üretmek
-              benim için büyük bir tutku. Özellikle front-end geliştirme, modern web teknolojileri
-              ve kullanıcı deneyimi konularında paylaşım yapmayı, mentorluk vermeyi ve karşılıklı
-              öğrenmeyi önemsiyorum.
-              Eğer bir proje üzerinde iş birliği yapmak, teknik konular hakkında sohbet etmek veya
-              mentorluk üzerine konuşmak isterseniz, bana her zaman ulaşabilirsiniz. Birlikte üretmek,
-              yeni teknolojileri keşfetmek ve yazılım dünyasında güçlü bir ağ oluşturmak için
-              iletişime geçmekten çekinmeyin! 🚀
-            </p>
-          </div>
-          <div className="contact-info-area">
-            <div onClick={() => (window.location.href = "mailto:kuluc.omer@gmail.com")} className="email-card">
-              <img src="/img/email-icon.svg" alt="" />
-              <p>kuluc.omer@gmail.com</p>
+            <div className="name-content">
+              <h1>Personal ID</h1>
+              <p>Name : Ömer</p>
+              <p>Surname : KULUÇ</p>
+              <p>Role : Jr Front-End Dev.</p>
             </div>
-            <div className="alternative-card">
-              <div onClick={() => window.open("https://github.com/omer-kuluc", "_blank")}
-                className="github-area">
-                <span>Github :</span>
-                <img src="/img/github-icon.svg" alt="" />
-              </div>
-              <div onClick={() => window.open("https://www.linkedin.com/in/%C3%B6mer-kulu%C3%A7-8a03291b6/", "_blank")}
-                className="linkedin-area">
-                <span>Linkedin :</span>
-                <img src="/img/linkedin-icon.svg" alt="" />
+            <div className="contact-channels">
+              <p>Contact : </p>
+              <div className="contact-channels-inner">
+                <div onClick={() => (window.location.href = "mailto:kuluc.omer@gmail.com")} className="email-card">
+                  <img src="/img/email-icon.svg" alt="" />
+                  <p className="mobile-none">kuluc.omer@gmail.com</p>
+                </div>
+                <div onClick={() => window.open("https://github.com/omer-kuluc", "_blank")}
+                  className="github-area">
+                  <span className="mobile-none">Github :</span>
+                  <img src="/img/github-icon.svg" alt="" />
+                </div>
+                <div onClick={() => window.open("https://www.linkedin.com/in/%C3%B6mer-kulu%C3%A7-8a03291b6/", "_blank")}
+                  className="linkedin-area">
+                  <span className="mobile-none">Linkedin :</span>
+                  <img src="/img/linkedin-icon.svg" alt="" />
+                </div>
               </div>
             </div>
           </div>
