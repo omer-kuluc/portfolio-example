@@ -43,6 +43,14 @@ function App() {
   const page = getPage(url);
 
   useEffect(() => {
+    if (url === "/") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [url]);
+
+  useEffect(() => {
     async function getData() {
       try {
         const response = await fetch("/data/data.json");
@@ -74,6 +82,12 @@ function App() {
     }
   }, [count]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [url]);
+
+
+
   return (
     <>
       {showIntro && (
@@ -96,79 +110,130 @@ function App() {
   );
 }
 
-
 function Header() {
   const [activePage, setActivePage] = useState(location.hash || "#/");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  /* ↻ ekran boyutu değişince mobil mi kontrol et */
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 500);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleHashChange = () => {
+      setActivePage(location.hash || "#/");
+      setMenuOpen(false);
+    };
 
-  /* ↻ hash değişince aktif link & menüyü kapat */
-  useEffect(() => {
-    const onHash = () => { setActivePage(location.hash || "#/"); setMenuOpen(false); };
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("hashchange", handleHashChange);
+    };
   }, []);
-
-  /* .navbar’a “mobile” sınıfı ekleyerek CSS’i tetikleyeceğiz */
-  const navbarCls = `navbar${isMobile ? " mobile" : ""}`;
 
   return (
-    <div className={navbarCls}>
+    <div className={`navbar ${isMobile ? "mobile" : ""}`}>
       <div className="navbar-inner">
         <div className="brand">Ömer KULUÇ</div>
 
-        {/* hamburger butonu – masaüstünde CSS ile gizli */}
-        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-          <span className={menuOpen ? "open" : ""}></span>
-          <span className={menuOpen ? "open" : ""}></span>
-          <span className={menuOpen ? "open" : ""}></span>
-        </div>
+        {isMobile && (
+          <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+            <span className={menuOpen ? "open" : ""}></span>
+            <span className={menuOpen ? "open" : ""}></span>
+            <span className={menuOpen ? "open" : ""}></span>
+          </div>
+        )}
 
         <ul className={`navbar-items ${menuOpen ? "open" : ""}`}>
-          <li><a href="#/" className={`nav-item ${activePage === "#/" ? "active" : ""}`}>Anasayfa</a></li>
-          <li><a href="#/about" className={`nav-item ${activePage === "#/about" ? "active" : ""}`}>Hakkımda</a></li>
-          <li><a href="#/works" className={`nav-item ${activePage === "#/works" ? "active" : ""}`}>Projelerim</a></li>
-          <li><a href="#/contact" className={`nav-item ${activePage === "#/contact" ? "active" : ""}`}>İletişim</a></li>
+          <li><a href="#/" className={`nav-item ${activePage === "#/" ? "active" : ""}`}>Home</a></li>
+          <li><a href="#/about" className={`nav-item ${activePage === "#/about" ? "active" : ""}`}>About</a></li>
+          <li><a href="#/works" className={`nav-item ${activePage === "#/works" ? "active" : ""}`}>Works</a></li>
+          <li><a href="#/contact" className={`nav-item ${activePage === "#/contact" ? "active" : ""}`}>Contact</a></li>
         </ul>
       </div>
     </div>
   );
 }
 
-
 function Home() {
+  const sectionRefs = useRef([]);
+  const [activeSection, setActiveSection] = useState(0);
+  const totalSections = 3;
+
+  const sectionLabels = ["About", "Works", "Contact"];
+  const sectionHashes = ["#/about", "#/works", "#/contact"];
+
+  const scrollToSection = (index, shouldUpdateHash = false) => {
+    if (sectionRefs.current[index]) {
+      sectionRefs.current[index].scrollIntoView({ behavior: "smooth" });
+      setActiveSection(index);
+      if (shouldUpdateHash) {
+        window.location.hash = sectionHashes[index];
+      }
+    }
+  };
+
+  const handleWheel = (e) => {
+    e.preventDefault();
+    const next = e.deltaY > 0
+      ? (activeSection + 1) % totalSections
+      : (activeSection - 1 + totalSections) % totalSections;
+    scrollToSection(next);
+  };
+
+  const setSectionRef = (el, index) => {
+    sectionRefs.current[index] = el;
+  };
+
+  const leftIndex = (activeSection - 1 + totalSections) % totalSections;
+  const rightIndex = (activeSection + 1) % totalSections;
+
+  const handleBubbleClick = (index) => {
+    scrollToSection(index, true);
+  };
+
+  useEffect(() => {
+    const hash = window.location.hash.toLowerCase();
+    const index = sectionHashes.findIndex(h => h === hash);
+    if (index !== -1) {
+      scrollToSection(index);
+    }
+  }, []);
+
+  // ✅ Wheel event için passive false olarak listener ekle
+  useEffect(() => {
+    const container = document.querySelector(".home-page-container");
+    container?.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      container?.removeEventListener("wheel", handleWheel);
+    };
+  }, [handleWheel]);
+
   return (
-    <>
-      <div className="home-page-container">
-        <div className="profile-area">
-          <div className="profile-section">
-            <img className="profil-photo" src="/img/profil.jpg" alt="Profil Fotoğrafı" />
-            <img src="/img/arrow-icon.svg" alt="" />
-            <h2 className="name-tag">Ömer <br />KULUÇ</h2>
-          </div>
-          <div className="intro-text-area">
-            Merhaba,
-            Portfolyo sayfama hoş geldiniz. Ben, yeni teknolojileri keşfetmeye meraklı ve tutkulu bir Jr. Front-End Developer'ım.
-            Web geliştirme dünyasındaki yolculuğum heyecan verici bir deneyim oldu ve her geçen gün kendimi daha da geliştirmeye çalışıyorum.
-          </div>
+    <div className="home-page-container">
+      <section ref={(el) => setSectionRef(el, 0)} className="home-section section-about">
+        <h1>About</h1>
+      </section>
+      <section ref={(el) => setSectionRef(el, 1)} className="home-section section-works">
+        <h1>Works</h1>
+      </section>
+      <section ref={(el) => setSectionRef(el, 2)} className="home-section section-contact">
+        <h1>Contact</h1>
+      </section>
+
+      <div className="side-bubbles">
+        <div className="bubble left visible" onClick={() => handleBubbleClick(leftIndex)}>
+          <span>{sectionLabels[leftIndex]}</span>
         </div>
-        <About />
-        <div className="change-page-options">
-          <a href="#/works">Projelerim</a>
-          <a href="#/contact">İletişim</a>
+        <div className="bubble right visible" onClick={() => handleBubbleClick(rightIndex)}>
+          <span>{sectionLabels[rightIndex]}</span>
         </div>
       </div>
-    </>
-
+    </div>
   );
 }
+
+
 
 function About() {
   const sectionRefs = useRef([]);
@@ -196,13 +261,12 @@ function About() {
     }
   ];
 
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("show");
+            entry.target.classList.add("visible");
           }
         });
       },
@@ -218,22 +282,26 @@ function About() {
 
   return (
     <>
-      <h2 className="about-header">HAKKIMDA</h2>
-      <div className="about-section">
-        {sections.map((section, i) => (
-          <div
-            key={i}
-            ref={(el) => (sectionRefs.current[i] = el)}
-            className={section.className}
-          >
-            <h3>{section.title}</h3>
-            <p>{section.content}</p>
-          </div>
-        ))}
+      <div className="about-animation-wrapper">
+        <h2 className="about-header">ABOUT</h2>
+        <div className="about-section">
+          {sections.map((section, i) => (
+            <div
+              key={i}
+              ref={(el) => (sectionRefs.current[i] = el)}
+              className={`${section.className} about-box box-${i + 1}`}
+              style={{ "--i": i }}
+            >
+              <h3>{section.title}</h3>
+              <p>{section.content}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
 }
+
 
 function Works({ data }) {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -332,43 +400,50 @@ function Contact() {
   return (
     <>
       <div className="contact-inner">
-        <h2 className="contact-header">İLETİŞİM</h2>
-        <div className="contact-content">
-          <img className="profil-photo" src="/img/profil.jpg" alt="Profil Fotoğrafı" />
-          <div className="contact-text">
-            <div className="name-content">
-              <h1>Personal ID</h1>
-              <p>Name : Ömer</p>
-              <p>Surname : KULUÇ</p>
-              <p>Role : Jr Front-End Dev.</p>
-            </div>
-            <div className="contact-channels">
-              <p>Contact : </p>
-              <div className="contact-channels-inner">
-                <div onClick={() => (window.location.href = "mailto:kuluc.omer@gmail.com")} className="email-card">
-                  <img src="/img/email-icon.svg" alt="" />
-                  <p className="mobile-none">kuluc.omer@gmail.com</p>
-                </div>
-                <div onClick={() => window.open("https://github.com/omer-kuluc", "_blank")}
-                  className="github-area">
-                  <span className="mobile-none">Github :</span>
-                  <img src="/img/github-icon.svg" alt="" />
-                </div>
-                <div onClick={() => window.open("https://www.linkedin.com/in/%C3%B6mer-kulu%C3%A7-8a03291b6/", "_blank")}
-                  className="linkedin-area">
-                  <span className="mobile-none">Linkedin :</span>
-                  <img src="/img/linkedin-icon.svg" alt="" />
+        <h2 className="contact-header">CONTACT</h2>
+
+        <div className="contact-card">
+          {/* Oklar */}
+          <div className="desktop-only">
+            <div className="arrow arrow-top">↓</div>
+            <div className="arrow arrow-right">←</div>
+            <div className="arrow arrow-bottom">↑</div>
+            <div className="arrow arrow-left">→</div>
+          </div>
+
+          {/* Asıl içerik */}
+          <div className="contact-content">
+            <img className="profil-photo" src="/img/profil.jpg" alt="Profil Fotoğrafı" />
+            <div className="contact-text">
+              <div className="name-content">
+                <h1>Personal ID</h1>
+                <p>Name : Ömer</p>
+                <p>Surname : KULUÇ</p>
+                <p>Role : Jr Front-End Dev.</p>
+              </div>
+              <div className="contact-channels">
+                <p>Contact : </p>
+                <div className="contact-channels-inner">
+                  <div onClick={() => (window.location.href = "mailto:kuluc.omer@gmail.com")} className="email-card">
+                    <img src="/img/email-icon.svg" alt="" />
+                  </div>
+                  <div onClick={() => window.open("https://github.com/omer-kuluc", "_blank")} className="github-area">
+                    <img src="/img/github-icon.svg" alt="" />
+                  </div>
+                  <div onClick={() => window.open("https://www.linkedin.com/in/%C3%B6mer-kulu%C3%A7-8a03291b6/", "_blank")} className="linkedin-area">
+                    <img src="/img/linkedin-icon.svg" alt="" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-
         </div>
+
       </div>
     </>
-  )
+  );
 }
+
 
 function NotFound() {
   return (
