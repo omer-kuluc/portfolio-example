@@ -204,6 +204,7 @@ function Home() {
     const container = document.querySelector(".home-page-container");
     container?.addEventListener("wheel", handleWheel, { passive: false });
 
+
     return () => {
       container?.removeEventListener("wheel", handleWheel);
     };
@@ -225,10 +226,16 @@ function Home() {
         <div className="bubble left visible" onClick={() => handleBubbleClick(leftIndex)}>
           <span>{sectionLabels[leftIndex]}</span>
         </div>
+
+        <div className="bubble center active" onClick={() => handleBubbleClick(activeSection)}>
+          <span><img src="/img/go-to-link-icon.svg" alt="" /></span>
+        </div>
+
         <div className="bubble right visible" onClick={() => handleBubbleClick(rightIndex)}>
           <span>{sectionLabels[rightIndex]}</span>
         </div>
       </div>
+
     </div>
   );
 }
@@ -308,7 +315,7 @@ function Works({ data }) {
   const [animating, setAnimating] = useState(false);
   const [animationClass, setAnimationClass] = useState("slide-in-left");
   const [currentProject, setCurrentProject] = useState(null);
-  const detailRef = useRef(null); // 👈 Detay alanı referansı
+  const detailRef = useRef(null);
 
   useEffect(() => {
     if (!selectedProject) return;
@@ -329,7 +336,6 @@ function Works({ data }) {
       setAnimationClass("slide-in-left");
       setAnimating(false);
 
-      // 🌐 Sadece mobilde scroll
       if (window.innerWidth < 768 && detailRef.current) {
         detailRef.current.scrollIntoView({ behavior: "smooth" });
       }
@@ -357,17 +363,17 @@ function Works({ data }) {
   }
 
   return (
-    <div className="works-page">
+    <div className={`works-page ${currentProject ? "project-open" : ""}`}>
       <div className="keyboard-container">
         {data.map((project, index) => (
-          <div
+          <button
             key={project.id}
             className={`key ${currentProject?.id === project.id ? "active-key" : ""}`}
             style={{ animationDelay: `${index * 0.05}s` }}
             onClick={() => setSelectedProject(project)}
           >
             {project.title}
-          </div>
+          </button>
         ))}
       </div>
 
@@ -380,6 +386,8 @@ function Works({ data }) {
             alt={currentProject.title}
             className="project-image"
           />
+
+          <p>{currentProject.info}</p>
           <div className="project-buttons">
             <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer">
               🌐 Canlı Gör
@@ -395,6 +403,7 @@ function Works({ data }) {
     </div>
   );
 }
+
 
 function Contact() {
   return (
