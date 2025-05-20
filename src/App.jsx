@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, createContext } from "react";
 import "./App.css";
-
+import ParticlesBackground from "./ParticlesBackground";
 
 
 const routes = [
@@ -76,9 +76,11 @@ function App() {
       const timer = setTimeout(() => setCount(prev => prev + 1), 40);
       return () => clearTimeout(timer);
     } else {
-      setTimeout(() => {
+      // count 100 olunca 750ms sonra intro'yu gizle
+      const timer = setTimeout(() => {
         setShowIntro(false);
-      }, 4750);
+      }, 2250);
+      return () => clearTimeout(timer);
     }
   }, [count]);
 
@@ -86,12 +88,11 @@ function App() {
     window.scrollTo(0, 0);
   }, [url]);
 
-
-
   return (
     <>
       {showIntro && (
-        <div className="intro-screen">
+        <div className={`intro-screen ${!showIntro ? "fade-out" : ""}`}>
+          <ParticlesBackground />
           <div className="intro-text">ÖMER KULUÇ | Front-End Developer</div>
           <div className="count-up">{count}%</div>
         </div>
@@ -109,6 +110,7 @@ function App() {
     </>
   );
 }
+
 
 function Header() {
   const [activePage, setActivePage] = useState(location.hash || "#/");
@@ -212,6 +214,8 @@ function Home() {
 
   return (
     <div className="home-page-container">
+      <ParticlesBackground />
+
       <section ref={(el) => setSectionRef(el, 0)} className="home-section section-about">
         <h1>About</h1>
       </section>

@@ -12,12 +12,20 @@
   margin: 0;
 }
 
+/* Temel arka plan */
+html {
+  background: linear-gradient(to bottom right, #2b6c92, #005f73, #a12121ad, #001219);
+}
+
+
+
 body {
   /* 3. Add accessible line-height */
   line-height: 1.5;
   /* 4. Improve text rendering */
   -webkit-font-smoothing: antialiased;
   font-family: 'Outfit';
+
 
 }
 
@@ -244,8 +252,8 @@ a {
 
 .navbar.mobile .navbar-items {
   position: absolute;
-  top: 60px;
-  left: 90px;
+  top: 55px;
+  left: 100px;
   right: 0;
   flex-direction: column;
   gap: 16px;
@@ -267,13 +275,13 @@ a {
 }
 
 /* header-end */
+
 /*home-mobile-start*/
 
 .home-page-container {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  position: relative;
 }
 
 .home-section {
@@ -285,6 +293,12 @@ a {
   font-size: 3rem;
   transition: background 1s ease;
   color: white;
+
+}
+
+.home-section h1 {
+  margin-top: 65px;
+  position: relative;
 }
 
 .section-about {
@@ -400,7 +414,6 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
   gap: 20px;
 }
 
@@ -450,56 +463,49 @@ a {
 
 }
 
-
 .about-school-section {
-  background-image: url('/img/green-background.png');
-  background-size: cover;
-  background-position: 99% 80%;
-  color: rgb(37, 49, 46);
+  background-color: rgba(205, 133, 63, 0.85);
+  /* Terracotta (tarçın/kiremit) */
+  color: #fffaf4;
+  /* Sıcak beyaz */
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(160, 90, 40, 0.4);
 }
 
-
 .about-course-section {
-  background-image: url('/img/purple-background.png');
-  background-size: cover;
-  background-position: 99% 50%;
-
-  color: #000000B2;
+  background-color: rgba(183, 85, 69, 0.85);
+  /* Rusty red */
+  color: #fff7f2;
+  /* Kırık beyaz */
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(150, 65, 50, 0.4);
 }
 
 
 .about-front-end-section {
-  background-image: url('/img/yellow-bacgkround.png');
-  background-size: cover;
-  background-position: 99% 50%;
+  background-color: rgba(223, 207, 190, 0.85);
+  /* Krem-kahve geçişi */
+  color: #1a1a1a;
+  /* Dingin siyah */
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(180, 160, 140, 0.4);
 }
-
 
 .about-future-section {
-  background-image: url('/img/green-background.png');
-  background-size: cover;
-  background-position: 99% 50%;
-  color: #000000B2;
+  background-color: rgba(98, 90, 125, 0.85);
+  /* Slate Purple */
+  color: #f1eefb;
+  /* Açık lavanta / buz beyazı */
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(70, 65, 95, 0.4);
 }
+
+
+
 
 
 
 /* about-mobile-end */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* .work-cards {
   padding-top: 10px;
@@ -586,10 +592,13 @@ a {
 
 .contact-header {
   text-align: center;
-  margin-block: 20px;
+  margin-top: 70px;
+  margin-bottom: 20px;
   color: rgb(190, 190, 218);
   border-radius: 10px;
   margin-inline: auto;
+  position: relative;
+  z-index: 11;
 }
 
 .contact-content {
@@ -676,46 +685,55 @@ a {
   height: 25px;
 }
 
-/*intro-start*/
+/*intro-mobil-start*/
 
-/* Intro Ekranı */
+
+
+/* Intro ekranı */
 .intro-screen {
   position: fixed;
   inset: 0;
   background: linear-gradient(to bottom right, #2b6c92, #005f73, #a12121ad, #001219);
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   z-index: 9999;
-  animation: slideUpReveal 3.5s ease-in-out forwards;
-  animation-delay: 5s;
+  opacity: 1;
+  transition: opacity 1.5s ease;
   overflow: hidden;
+  pointer-events: all;
 }
 
-/* Intro Yazısı */
+
+/* Intro kapanırken fade out */
+.intro-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Yazı */
 .intro-text {
   color: white;
   font-size: 2rem;
   font-weight: bold;
   opacity: 0;
-  animation: textDropFade 2s ease-out forwards;
+  animation: textDropFade 2.5s ease-in-out forwards;
   animation-delay: 0.5s;
 }
 
-
-/* Animasyonlar */
-@keyframes slideUpReveal {
-  0% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(-100%);
-  }
+/* Sayac */
+.count-up {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #ffffff;
+  opacity: 0;
+  animation: countFadeIn 2.0s ease-out forwards;
+  animation-delay: 0.5s;
 }
 
+/* Animasyonlar */
 @keyframes textDropFade {
   0% {
     transform: translateY(-50px) scale(0.8);
@@ -728,30 +746,18 @@ a {
   }
 }
 
-
-/* intro ekranında geri sayım için */
-.count-up {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  color: #ffffff;
-  animation: countFadeIn 1.5s ease-out forwards;
-  opacity: 0;
-}
-
 @keyframes countFadeIn {
   to {
     opacity: 1;
   }
 }
 
-/*intro-end*/
-
+/* Ana ekran geçişi */
 .fade-in {
   opacity: 0;
   transform: translateY(-30px);
-  animation: fadeInUp 1.5s ease forwards;
-  animation-delay: 0.3s;
+  animation: fadeInUp 2s ease-in-out forwards;
+  animation-delay: 0.25s;
 }
 
 @keyframes fadeInUp {
@@ -761,6 +767,8 @@ a {
   }
 }
 
+/*intro-mobil-end*/
+
 
 /*works-mobile-start*/
 .works-page {
@@ -768,7 +776,6 @@ a {
   overflow-x: hidden;
   min-height: 100vh;
   padding-top: 15px;
-
 }
 
 .keyboard-title {
@@ -789,6 +796,8 @@ a {
   justify-items: center;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   min-height: 150px;
+  position: relative;
+  top: 80px;
 }
 
 .key {
@@ -998,7 +1007,6 @@ a {
     flex-direction: column;
     align-items: center;
     transition: all 0.4s ease;
-    position: relative;
   }
 
   .works-page.project-open {
@@ -1029,7 +1037,7 @@ a {
   }
 
   .project-detail-area {
-    margin-top: 2rem;
+    margin-top: 5rem;
     max-width: 600px;
     text-align: center;
     background: white;
@@ -1077,9 +1085,11 @@ a {
 
   /* about-tablet-start */
   .about-header {
+    position: relative;
+    z-index: 11;
     text-align: center;
     font-size: 36px;
-    z-index: 2;
+    top: 70px;
   }
 
   .about-animation-wrapper {
@@ -1096,16 +1106,15 @@ a {
   }
 
   .about-section {
-    padding: 15px;
     position: relative;
     width: 100%;
     height: 100vh;
+    margin-top: 80px;
   }
 
   .about-box {
     position: absolute;
-    width: 350px;
-    background-color: #f0f0f0;
+    width: 500px;
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0);
     top: 50%;
@@ -1175,35 +1184,37 @@ a {
 
   /* about-tablet-end */
 
+  /*contact-tablet-start*/
 
+
+  .contact-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding: 15px 25px;
+    border-radius: 25px;
+
+  }
+
+  .contact-header {
+    margin-top: 80px;
+    margin-bottom: 20px;
+  }
+
+  .profil-photo {
+    width: 135px;
+    border-radius: 25px;
+  }
+
+  .email-card img {
+    width: 50px;
+  }
+
+
+  /*contact-tablet-end*/
 
 }
-
-/*contact-tablet-start*/
-
-
-.contact-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-  padding: 15px 25px;
-  border-radius: 25px;
-
-}
-
-.profil-photo {
-  width: 135px;
-  border-radius: 25px;
-}
-
-.email-card img {
-  width: 50px;
-}
-
-
-/*contact-tablet-end*/
-
 
 @media (width >=1110px) {
 
@@ -1294,14 +1305,14 @@ a {
   }
 
   .arrow-left {
-    left: 300px;
+    left: 17.5%;
     top: 45%;
     transform: translateY(-50%);
     animation: moveRight 1.5s infinite ease-in-out;
   }
 
   .arrow-right {
-    right: 300px;
+    right: 17.5%;
     top: 45%;
     transform: translateY(-50%);
     animation: moveLeft 1.5s infinite ease-in-out;
