@@ -277,12 +277,26 @@ a {
 
 /* header-end */
 
-/*home-mobile-start*/
+/* home-mobile-start */
 
 .home-page-container {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+}
+
+/* ✅ Fade-in animasyonu girişte */
+.fade-in-home {
+  animation: fadeInUp 1s ease-in-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .home-section {
@@ -353,7 +367,6 @@ a {
   align-self: flex-end;
 }
 
-/* ✅ Ortadaki aktif bubble */
 .bubble.center {
   position: fixed;
   bottom: -120px;
@@ -367,13 +380,10 @@ a {
     img {
       transform: scale(1.25);
     }
-
   }
 }
 
-
-/*home-mobile-end*/
-
+/* home-mobile-end */
 
 
 
@@ -886,6 +896,17 @@ a {
     padding-left: 10px;
     max-height: 200px;
     overflow-y: auto;
+  }
+
+  img {
+    transition: all 0.5s ease;
+  }
+
+
+  img:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+    ;
   }
 }
 

@@ -85,7 +85,7 @@ function App() {
   }, [count]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [url]);
 
   return (
@@ -201,11 +201,9 @@ function Home() {
     }
   }, []);
 
-  // ✅ Wheel event için passive false olarak listener ekle
   useEffect(() => {
     const container = document.querySelector(".home-page-container");
     container?.addEventListener("wheel", handleWheel, { passive: false });
-
 
     return () => {
       container?.removeEventListener("wheel", handleWheel);
@@ -213,7 +211,7 @@ function Home() {
   }, [handleWheel]);
 
   return (
-    <div className="home-page-container">
+    <div className="home-page-container fade-in-home">
       <ParticlesBackground />
 
       <section ref={(el) => setSectionRef(el, 0)} className="home-section section-about">
@@ -239,7 +237,6 @@ function Home() {
           <span>{sectionLabels[rightIndex]}</span>
         </div>
       </div>
-
     </div>
   );
 }
@@ -294,7 +291,7 @@ function About() {
 
   return (
     <>
-      <div className="about-animation-wrapper">
+      <div className="about-animation-wrapper fade-in-home">
         <h2 className="about-header">ABOUT</h2>
         <div className="about-section">
           {sections.map((section, i) => (
@@ -373,7 +370,7 @@ function Works({ data }) {
   }
 
   return (
-    <div className={`works-page ${currentProject ? "project-open" : ""}`}>
+    <div className={`works-page ${currentProject ? "project-open" : ""} fade-in-home`}>
       <div className="keyboard-container">
         {data.map((project, index) => (
           <button
@@ -394,6 +391,7 @@ function Works({ data }) {
           <img
             src={currentProject.image}
             alt={currentProject.title}
+            onClick={currentProject.liveLink}
             className="project-image"
           />
 
@@ -422,7 +420,7 @@ function Works({ data }) {
 function Contact() {
   return (
     <>
-      <div className="contact-inner">
+      <div className="contact-inner fade-in-home">
         <h2 className="contact-header">CONTACT</h2>
 
         <div className="contact-card">
