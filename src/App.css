@@ -419,7 +419,7 @@ a {
 
 
 .about-box {
-  padding-left: 10px;
+  padding-inline: 10px;
   padding-block: 5px;
   border-radius: 20px;
   background-color: #f0f0f0;
@@ -464,37 +464,54 @@ a {
 }
 
 .about-school-section {
-  background-color: rgba(205, 133, 63, 0.85);
+  /* background-color: rgba(205, 133, 63, 0.85); */
   /* Terracotta (tarçın/kiremit) */
-  color: #fffaf4;
+  background-color: rgba(183, 85, 69, 0.85);
+  /* color: #fff7f2; */
+  color: #fbece7;
+  /* Tarçın zeminle daha doğal uyum sağlayan sıcak krem */
+
+  /* color: #fffaf4; */
   /* Sıcak beyaz */
   backdrop-filter: blur(6px);
   border: 1px solid rgba(160, 90, 40, 0.4);
 }
 
 .about-course-section {
-  background-color: rgba(183, 85, 69, 0.85);
-  /* Rusty red */
-  color: #fff7f2;
-  /* Kırık beyaz */
+  background-color: rgba(100, 170, 140, 0.85);
+  /* Nane yeşili tonlarında */
+  /* color: #f9fefc; */
+  color: #fefcf3;
+  /* Hafif sarımtırak beyaz, sıcak ve yumuşak kontrast sağlar */
+
+  /* Neredeyse beyaz, yumuşak */
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(150, 65, 50, 0.4);
+  border: 1px solid rgba(80, 140, 110, 0.4);
+  /* Hafif koyu yeşil kenar */
 }
 
 
 .about-front-end-section {
-  background-color: rgba(223, 207, 190, 0.85);
-  /* Krem-kahve geçişi */
-  color: #1a1a1a;
-  /* Dingin siyah */
+  background-color: rgba(193, 150, 110, 0.85);
+  color: #fcf8f4;
+  /* Açık krem, fazla doygun olmayan beyaz */
+
+  /* Dingin siyah yerine klasik açık beyaz */
+
+  /* Açık bej - sıcak ve sofistike bir görünüm verir */
+
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(180, 160, 140, 0.4);
+  border: 1px solid rgba(120, 90, 60, 0.4);
 }
 
+
 .about-future-section {
-  background-color: rgba(98, 90, 125, 0.85);
+  background-color: rgba(148, 132, 180, 0.85);
+
   /* Slate Purple */
-  color: #f1eefb;
+  color: #fefefe;
+
+  /* Lavanta alt tonlarına uygun, hafif gri-mor beyaz */
   /* Açık lavanta / buz beyazı */
   backdrop-filter: blur(6px);
   border: 1px solid rgba(70, 65, 95, 0.4);
@@ -1114,7 +1131,7 @@ a {
   /* about-tablet-start */
   .about-header {
     text-align: center;
-    font-size: 36px;
+    font-size: 30px;
   }
 
   .about-animation-wrapper {
@@ -1147,7 +1164,7 @@ a {
     opacity: 0;
     visibility: hidden;
     z-index: 2;
-    height: 200px;
+    height: 250px;
     /* Animasyon başlamadan önce görünmesin */
   }
 
@@ -1170,12 +1187,12 @@ a {
   }
 
   .box-3 {
-    --final-top: 45%;
+    --final-top: 50%;
     --final-left: 25%;
   }
 
   .box-4 {
-    --final-top: 45%;
+    --final-top: 50%;
     --final-left: 75%;
   }
 

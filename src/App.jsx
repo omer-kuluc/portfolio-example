@@ -251,26 +251,27 @@ function About() {
 
   const sections = [
     {
-      title: "Bilgisayar Mühendisliği Mezunu ve Yazılım Temelleri",
+      title: "Computer Engineering Graduate and Software Foundations",
       className: "about-school-section",
-      content: `Bilgisayar mühendisliği eğitimiyle yazılıma sağlam bir temel attım. Kodlamada sadece çalışabilirlik değil, aynı zamanda verimlilik ve sürdürülebilirlik benim için öncelikli. Yazılım mimarisi ve optimizasyona özel bir ilgim var.`
+      content: `With a background in computer engineering, I built a strong foundation in software development. I focus not just on functionality but also on writing efficient and maintainable code. My education gave me a deep understanding of core programming principles.`
     },
     {
-      title: "Acunmedya Akademi'de Front-End Eğitimi",
+      title: "Front-End Training at Acunmedya Academy",
       className: "about-course-section",
-      content: `Acunmedya Akademi'de HTML, CSS, JavaScript ve React üzerine yoğun bir eğitim aldım. Kullanıcı dostu arayüzler geliştirme, API ile veri yönetimi gibi konularda proje deneyimi kazandım.`
+      content: `At Acunmedya Academy, I received intensive training in HTML, CSS, JavaScript, and React. I gained hands-on experience in creating user-friendly interfaces and managing data through APIs. I also learned how to use GitHub for version control and project collaboration.`
     },
     {
-      title: "Modern Web Teknolojilerine Tutkulu Bir Front-End Geliştirici",
+      title: "A Front-End Developer Passionate About Modern Web Technologies",
       className: "about-front-end-section",
-      content: `Teknoloji tutkum beni front-end geliştirmeye yönlendirdi. React ile etkileşimli, performanslı arayüzler geliştiriyorum. Kodun temiz, sürdürülebilir ve ölçeklenebilir olması benim için önemli.`
+      content: `My passion for technology led me to front-end development. I create interactive and high-performance interfaces using React. Writing clean, scalable, and sustainable code is one of my core priorities.`
     },
     {
-      title: "Front-End Geliştirici Olarak Kariyer Hedefim",
+      title: "Career Goals as a Front-End Developer",
       className: "about-future-section",
-      content: `Hedefim, kullanıcı deneyimi yüksek projelerde yer almak. Yeni teknolojileri takip ediyor, öğrenmeye açık ve yaratıcı çözümler üreten biri olarak sektörde kalıcı işler yapmak istiyorum.`
+      content: `My goal is to work on projects with exceptional user experience. I stay updated with new technologies and aim to create impactful and lasting solutions as a creative and open-minded developer.`
     }
   ];
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
