@@ -4,7 +4,7 @@
       "id": 1,
       "title": "Product List with Chart",
       "image": "/img/product-list-with-chart-image.png",
-      "info": "Restaurant App",
+      "info": "This React-based Product List App combines a structured item management system with data visualization. Users can add, update, and delete products, each with properties like name, price, and category. Products are displayed in a responsive layout, and all CRUD operations are handled using useState to manage local state. A dynamic bar chart, powered by Recharts, visually represents product distribution by category or price. The app demonstrates component-based design, prop drilling, and interactive form handling, all adhering to modern React development practices.",
       "githubLink": "https://github.com/omer-kuluc/product-list",
       "liveLink": "https://product-list-five-iota.vercel.app/"
     },
@@ -12,7 +12,7 @@
       "id": 2,
       "title": "Dictionary Web App",
       "image": "/img/dictionary-web-app-image.png",
-      "info": "Restaurant App",
+      "info": "This dictionary-app is a React-based English dictionary interface that fetches and displays real-time word definitions using the public DictionaryAPI. The application makes extensive use of React hooks such as useState, useEffect, and useRef to manage stateful logic and UI behavior. Upon user input, the app performs an asynchronous fetch to the external API and conditionally renders phonetics, meanings, example sentences, and synonyms. All state transitions, such as empty input validation (isEmpty) and error handling, are explicitly managed. The word results are stored in the wordInfo state, and reactivity is driven by changes to the searchInput. The UI is modularly split into two primary components: Header and Word. The Header includes a form for search input, font family customization (via a dropdown that modifies document.body.style.fontFamily), and a dark mode toggle, which is persistently stored in localStorage and synchronized with the DOM by toggling the dark-mode class. The Word component dynamically maps API response data into rich semantic sections: word pronunciation (with audio playback support), part of speech categories, multiple definitions with example usage, and interactive synonyms that trigger a new search on click. The design prioritizes UX with error messages, audio feedback, scroll restoration, and an external source link (Wiktionary). The app demonstrates strong component separation, state-driven rendering, and API consumption, adhering to modern React development standards with a focus on accessibility and user interactivity.",
       "githubLink": "https://github.com/omer-kuluc/dictionary-web-app-react",
       "liveLink": "https://dictionary-web-app-react-omega.vercel.app/"
     },
@@ -20,7 +20,7 @@
       "id": 3,
       "title": "Entertainment Web App",
       "image": "/img/entertainment-web-app-image.png",
-      "info": "Restaurant App",
+      "info": "This Entertainment Web App is a React-based media browser that fetches movie and TV show data from a JSON source and displays them in categorized lists: Trending, Movies, TV Series, and Bookmarked. It utilizes useState and useEffect to manage UI reactivity and state transitions. The search functionality filters results dynamically as users type, while bookmarks are stored in localStorage, enabling persistent user preferences. Each media item is presented as a responsive card component with metadata such as release year, category, and rating. The application implements conditional rendering, state-based filtering, and interactive toggling of bookmark status. The layout is responsive and supports both light and dark themes, enhancing user experience across devices.",
       "githubLink": "https://github.com/omer-kuluc/entertainment-app-react",
       "liveLink": "https://entertainment-app-react-pi.vercel.app/"
     },
@@ -28,7 +28,7 @@
       "id": 4,
       "title": "Quiz App",
       "image": "/img/quiz-app-react-image.png",
-      "info": "Restaurant App",
+      "info": "This quiz-app project is a React-based interactive quiz application that leverages useState and useEffect hooks for effective state management and lifecycle control. It asynchronously fetches quiz categories and questions from an external data.json file, enabling a dynamic and flexible content structure. Upon selecting a category, the corresponding questions are rendered via the map() method. User interactions—such as answer selection, submission, and score tracking—are handled through managed states (selectedOption, isSubmit, correctAnswerCount). Feedback for correct or incorrect answers is visually reflected using conditional class assignments. Throughout the quiz, progress is tracked and displayed as a percentage using a dedicated ProgressBar component. The app also supports a responsive light/dark theme toggle, utilizing localStorage and matchMedia to detect system preferences and update the UI by dynamically altering the body.className. The entire project is structured into reusable and modular components (Header, Menu, Questions, Result), reflecting a component-driven architecture and best practices in modern React development.",
       "githubLink": "https://github.com/omer-kuluc/quiz-app-react",
       "liveLink": "https://quiz-app-react-murex-ten.vercel.app/"
     },
@@ -36,7 +36,7 @@
       "id": 5,
       "title": "Product Feedback App",
       "image": "/img/product-feedback-app-image.png",
-      "info": "Restaurant App",
+      "info": "This Product Feedback App is a full-stack collaboration tool for submitting, filtering, and tracking user feedback. Built with React, the frontend features reusable components such as feedback cards, status columns, and modal forms. The app enables users to post new suggestions, vote on existing ones, and apply filters by category or status (Planned, In-Progress, Live). State management is handled using React hooks (useState, useEffect), while localStorage is used to persist voting actions. The UI supports drag-and-drop for status updates and includes detailed views for each suggestion with threaded comments. All forms have client-side validation. The application demonstrates component-based architecture, conditional rendering, user-driven interaction, and dynamic state updates across multiple views.",
       "githubLink": "https://github.com/acunmedyaakademi/gaye-buse-omer-akif-product-feedback-app",
       "liveLink": "https://gaye-buse-omer-akif-product-feedback-app.vercel.app/"
     },
@@ -44,7 +44,7 @@
       "id": 6,
       "title": "Kanban Task App",
       "image": "/img/kanban-task-management-image.png",
-      "info": "Restaurant App",
+      "info": "This Kanban Task App is a fully responsive task management platform built with React. It enables users to visualize, manage, and update their workflow using a three-column layout: To Do, In Progress, and Done. Each task is encapsulated as a modular card component, displaying task-specific metadata such as title, priority level, and status indicators. The application leverages the react-beautiful-dnd library to implement intuitive drag-and-drop functionality between columns. State is maintained using useState and updated through useEffect when necessary. New boards and columns can be created dynamically through modal forms, while existing tasks can be edited or deleted. The app features localStorage integration to persist board data across sessions. It demonstrates advanced component structuring, drag event handling, dynamic form rendering, and user-centric UI logic.",
       "githubLink": "https://github.com/acunmedyaakademi/Alfa-KanbanWepApp",
       "liveLink": "https://alfa-kanban-wep-app.vercel.app/"
     },
@@ -52,7 +52,7 @@
       "id": 7,
       "title": "Memory Game",
       "image": "/img/memory-game-react-image.png",
-      "info": "Restaurant App",
+      "info": "This Memory Game is a React-based card-matching game that challenges users to find pairs of identical images. The game uses useState to manage selected cards, matched pairs, and game state, while useEffect monitors game progression and handles automatic flipping back of unmatched cards. All card data is generated dynamically and shuffled at the start of each game using the Fisher–Yates algorithm. The game interface is mobile-responsive, features visual animations on match success, and provides a restart button for session resets. State changes trigger re-renders of card states, and conditional classNames are used to reflect the visual status of cards (flipped, matched, hidden). This project showcases component-based UI architecture, state-driven logic, conditional rendering, and simple algorithmic game flow in React.",
       "githubLink": "https://github.com/omer-kuluc/memory-game-react",
       "liveLink": "https://memory-game-react-chi.vercel.app/"
     }

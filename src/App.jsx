@@ -79,7 +79,7 @@ function App() {
       // count 100 olunca 750ms sonra intro'yu gizle
       const timer = setTimeout(() => {
         setShowIntro(false);
-      }, 2250);
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [count]);
@@ -391,10 +391,12 @@ function Works({ data }) {
             className="project-image"
           />
 
+          <h3>{currentProject.title}</h3>
           <p>{currentProject.info}</p>
+
           <div className="project-buttons">
             <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer">
-              🌐 Canlı Gör
+              🌐 Live
             </a>
             <a href={currentProject.githubLink} target="_blank" rel="noopener noreferrer">
               💻 GitHub

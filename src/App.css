@@ -253,10 +253,10 @@ a {
 .navbar.mobile .navbar-items {
   position: absolute;
   top: 55px;
-  left: 100px;
+  left: 180px;
   right: 0;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   background: linear-gradient(to bottom right, #2b6c92, #005f73, #a12121ad, #001219);
   /* background: black; */
   padding: 1rem 0;
@@ -272,6 +272,7 @@ a {
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
+  height: 250px;
 }
 
 /* header-end */
@@ -294,11 +295,9 @@ a {
   transition: background 1s ease;
   color: white;
 
-}
-
-.home-section h1 {
-  margin-top: 65px;
-  position: relative;
+  h1 {
+    font-size: 50px;
+  }
 }
 
 .section-about {
@@ -315,14 +314,13 @@ a {
 
 .side-bubbles {
   position: fixed;
-  top: 50%;
+  top: 45%;
   width: 100%;
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
   padding: 0 20px;
   pointer-events: none;
-  z-index: 10;
 }
 
 .bubble {
@@ -334,6 +332,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5px;
   opacity: 1;
   transition: all 0.5s ease;
   pointer-events: auto;
@@ -357,17 +356,18 @@ a {
 /* ✅ Ortadaki aktif bubble */
 .bubble.center {
   position: fixed;
-  bottom: 20px;
+  bottom: -120px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.4);
   opacity: 0.9;
+  transition: transform 1.5s ease-in-out;
 
   &:hover {
     img {
       transform: scale(1.25);
-      transition: 0.5s ease-in-out;
     }
+
   }
 }
 
@@ -385,12 +385,12 @@ a {
 }
 
 .about-animation-wrapper {
-  position: relative;
-  overflow: hidden;
   background: linear-gradient(to bottom right, #003973, #e5e5be);
+  padding: 15px;
 
   h2 {
     color: rgb(205, 210, 218);
+    margin-bottom: 15px;
   }
 }
 
@@ -597,22 +597,24 @@ a {
   color: rgb(190, 190, 218);
   border-radius: 10px;
   margin-inline: auto;
-  position: relative;
-  z-index: 11;
 }
 
 .contact-content {
-  padding: 5px 10px;
+  padding: 10px;
   background-color: #4774a1;
   color: white;
   align-items: center;
   border-radius: 10px;
   display: flex;
-  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-inline: auto;
+  max-width: 500px;
 }
 
 .profil-photo {
-  width: 100px;
+  width: 125px;
   border-radius: 15px;
 }
 
@@ -756,7 +758,7 @@ a {
 .fade-in {
   opacity: 0;
   transform: translateY(-30px);
-  animation: fadeInUp 2s ease-in-out forwards;
+  animation: fadeInUp 1.5s ease-in-out forwards;
   animation-delay: 0.25s;
 }
 
@@ -773,9 +775,10 @@ a {
 /*works-mobile-start*/
 .works-page {
   background: linear-gradient(to bottom right, #2c3e50, #fd746c);
+  min-height: 300vh;
+  padding-top: 20px;
   overflow-x: hidden;
-  min-height: 100vh;
-  padding-top: 15px;
+
 }
 
 .keyboard-title {
@@ -787,7 +790,6 @@ a {
 .keyboard-container {
   background: radial-gradient(circle at top left, #f0f0f0, #d3d3d3);
   max-width: 350px;
-  margin-inline: auto;
   padding: 5px 10px;
   display: grid;
   grid-template-columns: 15ch auto;
@@ -796,8 +798,8 @@ a {
   justify-items: center;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   min-height: 150px;
-  position: relative;
-  top: 80px;
+  margin-inline: auto;
+
 }
 
 .key {
@@ -847,9 +849,8 @@ a {
 
 .project-detail-area {
   margin-top: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 350px;
+  margin-inline: auto;
   text-align: center;
   background: white;
   border-radius: 12px;
@@ -860,6 +861,15 @@ a {
   min-height: 150px;
   margin-bottom: 50px;
   /* yükseklik sabitlendi */
+
+  p {
+    text-align: left;
+    margin-top: 15px;
+    line-height: 30px;
+    padding-left: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
 }
 
 /* Animasyonlar için yardımcı sınıflar */
@@ -984,13 +994,29 @@ a {
 
   /*home-tablet-start*/
 
+  .home-section h1 {
+    font-size: 70px;
+  }
 
-
+  .side-bubbles span {
+    font-size: 16px;
+  }
 
   .bubble {
-    height: 80px;
+    height: 70px;
+  }
 
+  /* ✅ Ortadaki aktif bubble */
+  .bubble.center {
+    bottom: -145px;
+    transition: transform 1.5s ease-in-out;
 
+    &:hover {
+      img {
+        transform: scale(1.25);
+      }
+
+    }
   }
 
   /*home-tablet-end*/
@@ -1002,11 +1028,11 @@ a {
   /*works-tablet-start*/
 
   .works-page {
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: all 0.4s ease;
+    padding-right: 25px;
   }
 
   .works-page.project-open {
@@ -1028,6 +1054,7 @@ a {
     transition: transform 0.4s ease, margin-left 0.4s ease;
     max-width: 600px;
     width: 100%;
+    margin-top: 30px;
   }
 
   .works-page.project-open .keyboard-container {
@@ -1037,18 +1064,19 @@ a {
   }
 
   .project-detail-area {
-    margin-top: 5rem;
-    max-width: 600px;
+    max-width: 900px;
     text-align: center;
     background: white;
     border-radius: 12px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     padding: 1rem;
     overflow: hidden;
-    position: relative;
     min-height: 150px;
-    margin-bottom: 50px;
     transition: opacity 0.4s ease, transform 0.4s ease;
+
+    p {
+      max-height: 350px;
+    }
   }
 
   /* Ekstra animasyon sınıfları */
@@ -1085,11 +1113,8 @@ a {
 
   /* about-tablet-start */
   .about-header {
-    position: relative;
-    z-index: 11;
     text-align: center;
     font-size: 36px;
-    top: 70px;
   }
 
   .about-animation-wrapper {
@@ -1114,7 +1139,7 @@ a {
 
   .about-box {
     position: absolute;
-    width: 500px;
+    width: 350px;
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0);
     top: 50%;
@@ -1135,22 +1160,22 @@ a {
 
   /* Her kutu için farklı hedef konumlar */
   .box-1 {
-    --final-top: 17%;
+    --final-top: 7%;
     --final-left: 25%;
   }
 
   .box-2 {
-    --final-top: 17%;
+    --final-top: 7%;
     --final-left: 75%;
   }
 
   .box-3 {
-    --final-top: 55%;
+    --final-top: 45%;
     --final-left: 25%;
   }
 
   .box-4 {
-    --final-top: 55%;
+    --final-top: 45%;
     --final-left: 75%;
   }
 
@@ -1194,7 +1219,8 @@ a {
     gap: 50px;
     padding: 15px 25px;
     border-radius: 25px;
-
+    max-width: 600px;
+    margin-inline: auto;
   }
 
   .contact-header {
@@ -1239,13 +1265,27 @@ a {
     margin-bottom: 125px;
   }
 
+  /*works-desktop-start*/
+
+  .project-detail-area {
+
+    p {
+      max-height: 180px;
+    }
+  }
+
+
+
+  /*works-desktop-end*/
+
+
   /* .work-cards {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
     padding: 20px 25px;
   } */
 
-  /*contact- start*/
+  /*contact-desktop-start*/
 
   .contact-content {
     max-width: 600px;
@@ -1255,6 +1295,7 @@ a {
 
     .profil-photo {
       margin-inline: auto;
+      width: 140px;
     }
 
   }
@@ -1414,10 +1455,10 @@ a {
     }
   }
 
-  /*contact-animation-end*/
+  /*contact-desktop-animation-end*/
 
 
-  /*contact- end*/
+  /*contact-desktop-end*/
 
 
   /* about-start */
