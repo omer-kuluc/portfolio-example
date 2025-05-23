@@ -775,7 +775,7 @@ a {
 /*works-mobile-start*/
 .works-page {
   background: linear-gradient(to bottom right, #2c3e50, #fd746c);
-  min-height: 300vh;
+  min-height: 100vh;
   padding-top: 20px;
   overflow-x: hidden;
 

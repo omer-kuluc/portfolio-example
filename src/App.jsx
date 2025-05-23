@@ -313,13 +313,13 @@ function About() {
   );
 }
 
-
 function Works({ data }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const [animating, setAnimating] = useState(false);
   const [animationClass, setAnimationClass] = useState("slide-in-left");
   const [currentProject, setCurrentProject] = useState(null);
   const detailRef = useRef(null);
+  const pRef = useRef(null); // Scroll kontrolü için yeni ref
 
   useEffect(() => {
     if (!selectedProject) return;
@@ -339,6 +339,11 @@ function Works({ data }) {
       setCurrentProject(selectedProject);
       setAnimationClass("slide-in-left");
       setAnimating(false);
+
+      // Scroll pozisyonunu sıfırla
+      if (pRef.current) {
+        pRef.current.scrollTop = 0;
+      }
 
       if (window.innerWidth < 768 && detailRef.current) {
         detailRef.current.scrollIntoView({ behavior: "smooth" });
@@ -392,7 +397,7 @@ function Works({ data }) {
           />
 
           <h3>{currentProject.title}</h3>
-          <p>{currentProject.info}</p>
+          <p ref={pRef}>{currentProject.info}</p>
 
           <div className="project-buttons">
             <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer">
@@ -409,6 +414,8 @@ function Works({ data }) {
     </div>
   );
 }
+
+
 
 
 function Contact() {
