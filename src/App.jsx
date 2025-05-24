@@ -85,7 +85,7 @@ function App() {
   }, [count]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   }, [url]);
 
   return (
@@ -157,6 +157,7 @@ function Header() {
 }
 
 function Home() {
+
   const sectionRefs = useRef([]);
   const [activeSection, setActiveSection] = useState(0);
   const totalSections = 3;
@@ -201,9 +202,11 @@ function Home() {
     }
   }, []);
 
+  // ✅ Wheel event için passive false olarak listener ekle
   useEffect(() => {
     const container = document.querySelector(".home-page-container");
     container?.addEventListener("wheel", handleWheel, { passive: false });
+
 
     return () => {
       container?.removeEventListener("wheel", handleWheel);
@@ -211,7 +214,7 @@ function Home() {
   }, [handleWheel]);
 
   return (
-    <div className="home-page-container fade-in-home">
+    <div className="home-page-container">
       <ParticlesBackground />
 
       <section ref={(el) => setSectionRef(el, 0)} className="home-section section-about">
@@ -237,6 +240,7 @@ function Home() {
           <span>{sectionLabels[rightIndex]}</span>
         </div>
       </div>
+
     </div>
   );
 }
@@ -291,7 +295,7 @@ function About() {
 
   return (
     <>
-      <div className="about-animation-wrapper fade-in-home">
+      <div className="about-animation-wrapper">
         <h2 className="about-header">ABOUT</h2>
         <div className="about-section">
           {sections.map((section, i) => (
@@ -317,7 +321,8 @@ function Works({ data }) {
   const [animationClass, setAnimationClass] = useState("slide-in-left");
   const [currentProject, setCurrentProject] = useState(null);
   const detailRef = useRef(null);
-  const pRef = useRef(null); // Scroll kontrolü için yeni ref
+  const pRef = useRef(null);
+  const lastDirection = useRef("left");
 
   useEffect(() => {
     if (!selectedProject) return;
@@ -331,18 +336,16 @@ function Works({ data }) {
     if (selectedProject.id === currentProject.id) return;
 
     setAnimating(true);
-    setAnimationClass("slide-out-right");
+    const exitClass = lastDirection.current === "left" ? "slide-out-right" : "slide-out-left";
+    const enterClass = lastDirection.current === "left" ? "slide-in-left" : "slide-in-right";
+    setAnimationClass(exitClass);
 
     const timeout = setTimeout(() => {
       setCurrentProject(selectedProject);
-      setAnimationClass("slide-in-left");
+      setAnimationClass(enterClass);
       setAnimating(false);
 
-      // Scroll pozisyonunu sıfırla
-      if (pRef.current) {
-        pRef.current.scrollTop = 0;
-      }
-
+      if (pRef.current) pRef.current.scrollTop = 0;
       if (window.innerWidth < 768 && detailRef.current) {
         detailRef.current.scrollIntoView({ behavior: "smooth" });
       }
@@ -353,6 +356,7 @@ function Works({ data }) {
 
   const handleNext = () => {
     if (!currentProject) return;
+    lastDirection.current = "left";
     const currentIndex = data.findIndex((p) => p.id === currentProject.id);
     const nextIndex = (currentIndex + 1) % data.length;
     setSelectedProject(data[nextIndex]);
@@ -360,6 +364,7 @@ function Works({ data }) {
 
   const handlePrev = () => {
     if (!currentProject) return;
+    lastDirection.current = "right";
     const currentIndex = data.findIndex((p) => p.id === currentProject.id);
     const prevIndex = (currentIndex - 1 + data.length) % data.length;
     setSelectedProject(data[prevIndex]);
@@ -370,14 +375,17 @@ function Works({ data }) {
   }
 
   return (
-    <div className={`works-page ${currentProject ? "project-open" : ""} fade-in-home`}>
+    <div className={`works-page ${currentProject ? "project-open" : ""}`}>
       <div className="keyboard-container">
         {data.map((project, index) => (
           <button
             key={project.id}
             className={`key ${currentProject?.id === project.id ? "active-key" : ""}`}
             style={{ animationDelay: `${index * 0.05}s` }}
-            onClick={() => setSelectedProject(project)}
+            onClick={() => {
+              lastDirection.current = "left";
+              setSelectedProject(project);
+            }}
           >
             {project.title}
           </button>
@@ -385,31 +393,42 @@ function Works({ data }) {
       </div>
 
       {currentProject && (
-        <div ref={detailRef} className={`project-detail-area ${animationClass}`}>
-          <button className="nav-arrow left" onClick={handlePrev}>‹</button>
+        <div
+          ref={detailRef}
+          className={`project-detail-area ${animationClass}`}
+          style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}
+        >
+          <button className="nav-arrow left" onClick={handlePrev}>
+            <img src="/img/circle-arrow-left.svg" alt="Prev" className="arrow-icon" />
+          </button>
 
-          <img
-            src={currentProject.image}
-            alt={currentProject.title}
-            onClick={currentProject.liveLink}
-            className="project-image"
-          />
+          <div className="project-content" style={{ flex: 1 }}>
+            <img
+              src={currentProject.image}
+              alt={currentProject.title}
+              onClick={() => window.open(currentProject.liveLink, "_blank")}
+              className="project-image"
+            />
+            <h3>{currentProject.title}</h3>
+            <p ref={pRef}>{currentProject.info}</p>
 
-          <h3>{currentProject.title}</h3>
-          <p ref={pRef}>{currentProject.info}</p>
-
-          <div className="project-buttons">
-            <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer">
-              🌐 Live
-            </a>
-            <a href={currentProject.githubLink} target="_blank" rel="noopener noreferrer">
-              💻 GitHub
-            </a>
+            <div className="project-buttons">
+              <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer">
+                🌐 Live
+              </a>
+              <a href={currentProject.githubLink} target="_blank" rel="noopener noreferrer">
+                💻 GitHub
+              </a>
+            </div>
           </div>
 
-          <button className="nav-arrow right" onClick={handleNext}>›</button>
+          <button className="nav-arrow right" onClick={handleNext}>
+            <img src="/img/circle-arrow-right.svg" alt="Next" className="arrow-icon" />
+          </button>
         </div>
       )}
+
+
     </div>
   );
 }
@@ -417,10 +436,11 @@ function Works({ data }) {
 
 
 
+
 function Contact() {
   return (
     <>
-      <div className="contact-inner fade-in-home">
+      <div className="contact-inner">
         <h2 className="contact-header">CONTACT</h2>
 
         <div className="contact-card">
