@@ -158,11 +158,6 @@ a {
 
 .navbar-items li {
   padding: 8px 0;
-  transition: transform 0.2s ease-in-out;
-}
-
-.navbar-items li:hover {
-  transform: translateY(-2px) scale(1.05);
 }
 
 .nav-item {
@@ -371,6 +366,43 @@ a {
 
   }
 }
+
+.scroll-hint {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1.2rem;
+  opacity: 0;
+  z-index: 15;
+  pointer-events: none;
+  font-weight: 300;
+  animation: fadeInOutHint 6s ease forwards;
+}
+
+@keyframes fadeInOutHint {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+
+  20% {
+    opacity: 0.3;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  80% {
+    opacity: 0.8;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
 
 
 /*home-mobile-end*/
@@ -1413,14 +1445,14 @@ a {
   }
 
   .arrow-left {
-    left: 17.5%;
+    left: 25%;
     top: 45%;
     transform: translateY(-50%);
     animation: moveRight 1.5s infinite ease-in-out;
   }
 
   .arrow-right {
-    right: 17.5%;
+    right: 25%;
     top: 45%;
     transform: translateY(-50%);
     animation: moveLeft 1.5s infinite ease-in-out;

@@ -156,8 +156,8 @@ function Header() {
   );
 }
 
-function Home() {
 
+function Home() {
   const sectionRefs = useRef([]);
   const [activeSection, setActiveSection] = useState(0);
   const totalSections = 3;
@@ -177,9 +177,10 @@ function Home() {
 
   const handleWheel = (e) => {
     e.preventDefault();
-    const next = e.deltaY > 0
-      ? (activeSection + 1) % totalSections
-      : (activeSection - 1 + totalSections) % totalSections;
+    const next =
+      e.deltaY > 0
+        ? (activeSection + 1) % totalSections
+        : (activeSection - 1 + totalSections) % totalSections;
     scrollToSection(next);
   };
 
@@ -196,17 +197,15 @@ function Home() {
 
   useEffect(() => {
     const hash = window.location.hash.toLowerCase();
-    const index = sectionHashes.findIndex(h => h === hash);
+    const index = sectionHashes.findIndex((h) => h === hash);
     if (index !== -1) {
       scrollToSection(index);
     }
   }, []);
 
-  // ✅ Wheel event için passive false olarak listener ekle
   useEffect(() => {
     const container = document.querySelector(".home-page-container");
     container?.addEventListener("wheel", handleWheel, { passive: false });
-
 
     return () => {
       container?.removeEventListener("wheel", handleWheel);
@@ -216,6 +215,9 @@ function Home() {
   return (
     <div className="home-page-container">
       <ParticlesBackground />
+
+      {/* ✨ Scroll Hint */}
+      <div className="scroll-hint">You can scroll ↓</div>
 
       <section ref={(el) => setSectionRef(el, 0)} className="home-section section-about">
         <h1>About</h1>
@@ -240,10 +242,11 @@ function Home() {
           <span>{sectionLabels[rightIndex]}</span>
         </div>
       </div>
-
     </div>
   );
 }
+
+
 
 
 
