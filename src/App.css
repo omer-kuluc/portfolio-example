@@ -698,12 +698,13 @@ a {
   border-radius: 5px;
 }
 
-.email-card img {
-  width: 15px;
+.email-card:hover {
+  background-color: #fff;
 }
 
 .github-area,
-.linkedin-area {
+.linkedin-area,
+.email-card {
   display: flex;
   border: 2px solid white;
   border-radius: 5px;
@@ -717,8 +718,6 @@ a {
 }
 
 .github-area img {
-  width: 20px;
-  height: 20px;
   transition: filter 0.3s ease;
 }
 
@@ -732,7 +731,8 @@ a {
 }
 
 .github-area img,
-.linkedin-area img {
+.linkedin-area img,
+.email-card img {
   width: 25px;
   height: 25px;
 }
@@ -1338,10 +1338,12 @@ a {
     border-radius: 25px;
   }
 
+  .github-area img,
+  .linkedin-area img,
   .email-card img {
-    width: 50px;
+    width: 40x;
+    height: 40px;
   }
-
 
   /*contact-tablet-end*/
 

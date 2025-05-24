@@ -469,7 +469,7 @@ function Contact() {
                 <p>Contact : </p>
                 <div className="contact-channels-inner">
                   <div onClick={() => (window.location.href = "mailto:kuluc.omer@gmail.com")} className="email-card">
-                    <img src="/img/email-icon.svg" alt="" />
+                    <img className="email-icon" src="/img/envelope-icon.svg" alt="" />
                   </div>
                   <div onClick={() => window.open("https://github.com/omer-kuluc", "_blank")} className="github-area">
                     <img src="/img/github-icon.svg" alt="" />
