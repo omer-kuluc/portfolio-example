@@ -417,10 +417,10 @@ function Works({ data }) {
 
             <div className="project-buttons">
               <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer">
-                🌐 Live
+                <img src="/img/live-icon.svg" alt="" />
               </a>
               <a href={currentProject.githubLink} target="_blank" rel="noopener noreferrer">
-                💻 GitHub
+                <img src="/img/github-icon.svg" alt="" />
               </a>
             </div>
           </div>

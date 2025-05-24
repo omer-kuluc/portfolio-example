@@ -990,21 +990,20 @@ a {
   gap: 1rem;
   flex-wrap: wrap;
   margin-top: 1rem;
+  transition: 1.5s ease-in-out;
+
+  img {
+    width: 25px;
+  }
 }
 
 .project-buttons a {
   padding: 0.6rem 1rem;
-  background-color: #333;
-  color: white;
   border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.project-buttons a:hover {
-  background-color: #111;
-  transform: scale(1.05);
+.project-buttons img:hover {
+  transform: scale(1.15);
 }
 
 .nav-arrow {
@@ -1171,6 +1170,13 @@ a {
 
     p {
       max-height: 350px;
+    }
+  }
+
+  .project-buttons {
+
+    img {
+      width: 40px;
     }
   }
 
