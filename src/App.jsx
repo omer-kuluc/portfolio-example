@@ -417,7 +417,7 @@ function Works({ data }) {
 
             <div className="project-buttons">
               <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer">
-                <img src="/img/live-icon.svg" alt="" />
+                <img src="/img/live-link-icon.svg" alt="" />
               </a>
               <a href={currentProject.githubLink} target="_blank" rel="noopener noreferrer">
                 <img src="/img/github-icon.svg" alt="" />
