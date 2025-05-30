@@ -632,6 +632,15 @@ a {
 
 } */
 
+
+/*contact-mobile-start*/
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
 .contact-inner {
   min-height: 100vh;
   padding: 5px 10px;
@@ -736,6 +745,13 @@ a {
   width: 25px;
   height: 25px;
 }
+
+
+/*contact-mobile-end*/
+
+
+
+
 
 /*intro-mobil-start*/
 
@@ -987,7 +1003,6 @@ a {
 .project-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
   flex-wrap: wrap;
   margin-top: 1rem;
   transition: 1.5s ease-in-out;
@@ -1176,9 +1191,10 @@ a {
   .project-buttons {
 
     img {
-      width: 40px;
+      width: 30px;
     }
   }
+
 
   .arrow-icon {
     width: 40px;
@@ -1392,32 +1408,56 @@ a {
     padding: 20px 25px;
   } */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /*contact-desktop-start*/
+
+  .contact-inner {
+    position: relative;
+    padding-bottom: 100px;
+  }
 
   .contact-content {
     max-width: 600px;
     margin-inline: auto;
-    animation: fadeInScale 5s ease forwards;
     opacity: 0;
-
-    .profil-photo {
-      margin-inline: auto;
-      width: 140px;
-    }
-
+    animation: fadeInScale 2s ease forwards;
   }
 
-  /*contact-animation - start*/
+  .profil-photo {
+    margin-inline: auto;
+    width: 140px;
+  }
+
   .contact-card {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 80px;
-    /* oklar için boşluk */
   }
 
-  /* Kart görünürlük animasyonu */
   @keyframes fadeInScale {
     to {
       opacity: 1;
@@ -1425,7 +1465,7 @@ a {
     }
   }
 
-  /* Varsayılan ok stilleri */
+  /* Oklar */
   .arrow {
     position: absolute;
     font-size: 2.5rem;
@@ -1437,7 +1477,6 @@ a {
     animation: glowPulse 2s infinite ease-in-out;
   }
 
-  /* Ok konumları - Karta daha yakın */
   .arrow-top {
     top: 10px;
     left: 50%;
@@ -1466,7 +1505,6 @@ a {
     animation: moveLeft 1.5s infinite ease-in-out;
   }
 
-  /* Ok animasyonları – merkeze doğru hareket */
   @keyframes moveDown {
     0% {
       transform: translateX(-50%) translateY(-20px);
@@ -1535,7 +1573,6 @@ a {
     }
   }
 
-  /* Turuncu-kırmızı parlayan oklar sadece desktop için */
   .desktop-only .arrow {
     color: #ff5722;
     text-shadow: 0 0 10px #ff5722, 0 0 20px #ff8a50;
@@ -1562,10 +1599,44 @@ a {
     }
   }
 
-  /*contact-desktop-animation-end*/
+  /* Toggle Button */
+  .contact-toggle-button {
+    background-color: #0cdcf7;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-weight: bold;
+    color: #0f1115;
+    cursor: pointer;
+    position: absolute;
+    left: 40%;
+    bottom: 230px;
+    font-size: 1rem;
+    transition: all 1.5s ease;
+    text-align: center;
+  }
 
+  /* Fade-out effect */
+  .fade-out-button {
+    animation: fadeOutSoft 3.0s ease forwards;
+  }
+
+  @keyframes fadeOutSoft {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(0.95);
+      pointer-events: none;
+    }
+  }
 
   /*contact-desktop-end*/
+
+
 
 
   /* about-start */
@@ -1574,11 +1645,9 @@ a {
 
   /* about-end */
 
-  /*contact-desktop-start*/
 
 
 
-  /*contact-desktop-end*/
 
 
 

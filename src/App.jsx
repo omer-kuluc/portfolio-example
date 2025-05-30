@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, createContext } from "react";
 import "./App.css";
 import ParticlesBackground from "./ParticlesBackground";
-
+import { motion, AnimatePresence } from "framer-motion";
 
 const routes = [
   {
@@ -417,10 +417,10 @@ function Works({ data }) {
 
             <div className="project-buttons">
               <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer">
-                <img src="/img/live-link-icon.svg" alt="" />
+                <img className="live-link-icon" src="/img/live-link-icon.svg" alt="" />
               </a>
               <a href={currentProject.githubLink} target="_blank" rel="noopener noreferrer">
-                <img src="/img/github-icon.svg" alt="" />
+                <img className="github-icon" src="/img/works-github-icon.svg" alt="" />
               </a>
             </div>
           </div>
@@ -439,54 +439,142 @@ function Works({ data }) {
 
 
 
-
 function Contact() {
+  const [showCard, setShowCard] = useState(true);
+  const [animationEnded, setAnimationEnded] = useState(false);
+  const [buttonVisible, setButtonVisible] = useState(false);
+  const [buttonText, setButtonText] = useState("Do you want to still contact ?");
+  const [buttonFade, setButtonFade] = useState(false);
+
+  useEffect(() => {
+    if (animationEnded) {
+      const timer = setTimeout(() => {
+        setShowCard(false);
+        setButtonVisible(true);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [animationEnded]);
+
+  useEffect(() => {
+    if (buttonText === "So, you can write..") {
+      const fadeTimer = setTimeout(() => {
+        setButtonFade(true);
+      }, 3000); // 1.8 saniye sonra buton yavaşça kaybolacak
+
+      return () => clearTimeout(fadeTimer);
+    }
+  }, [buttonText]);
+
+  const handleButtonClick = () => {
+    setShowCard(true);
+    setButtonText("So, you can write..");
+    setButtonFade(false); // Geri geldiğinde tekrar görünür olsun
+  };
+
   return (
     <>
       <div className="contact-inner">
         <h2 className="contact-header">CONTACT</h2>
 
-        <div className="contact-card">
-          {/* Oklar */}
-          <div className="desktop-only">
-            <div className="arrow arrow-top">↓</div>
-            <div className="arrow arrow-right">←</div>
-            <div className="arrow arrow-bottom">↑</div>
-            <div className="arrow arrow-left">→</div>
-          </div>
-
-          {/* Asıl içerik */}
-          <div className="contact-content">
-            <img className="profil-photo" src="/img/profil.jpg" alt="Profil Fotoğrafı" />
-            <div className="contact-text">
-              <div className="name-content">
-                <h1>Personal ID</h1>
-                <p>Name : Ömer</p>
-                <p>Surname : KULUÇ</p>
-                <p>Role : Jr Front-End Dev.</p>
+        <AnimatePresence>
+          {showCard && (
+            <motion.div
+              className="contact-card"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                transition: { duration: 2, ease: "easeOut" },
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0,
+                transition: { duration: 1.2, ease: "easeInOut" },
+              }}
+              onAnimationComplete={() => setAnimationEnded(true)}
+            >
+              <div className="desktop-only">
+                <div className="arrow arrow-top">↓</div>
+                <div className="arrow arrow-right">←</div>
+                <div className="arrow arrow-bottom">↑</div>
+                <div className="arrow arrow-left">→</div>
               </div>
-              <div className="contact-channels">
-                <p>Contact : </p>
-                <div className="contact-channels-inner">
-                  <div onClick={() => (window.location.href = "mailto:kuluc.omer@gmail.com")} className="email-card">
-                    <img className="email-icon" src="/img/envelope-icon.svg" alt="" />
+
+              <div className="contact-content">
+                <img
+                  className="profil-photo"
+                  src="/img/profil.jpg"
+                  alt="Profil Fotoğrafı"
+                />
+                <div className="contact-text">
+                  <div className="name-content">
+                    <h1>Personal ID</h1>
+                    <p>Name : Ömer</p>
+                    <p>Surname : KULUÇ</p>
+                    <p>Role : Jr Front-End Dev.</p>
                   </div>
-                  <div onClick={() => window.open("https://github.com/omer-kuluc", "_blank")} className="github-area">
-                    <img src="/img/github-icon.svg" alt="" />
-                  </div>
-                  <div onClick={() => window.open("https://www.linkedin.com/in/%C3%B6mer-kulu%C3%A7-8a03291b6/", "_blank")} className="linkedin-area">
-                    <img src="/img/linkedin-icon.svg" alt="" />
+                  <div className="contact-channels">
+                    <p>Contact : </p>
+                    <div className="contact-channels-inner">
+                      <div
+                        onClick={() =>
+                          (window.location.href = "mailto:kuluc.omer@gmail.com")
+                        }
+                        className="email-card"
+                      >
+                        <img
+                          className="email-icon"
+                          src="/img/envelope-icon.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div
+                        onClick={() =>
+                          window.open("https://github.com/omer-kuluc", "_blank")
+                        }
+                        className="github-area"
+                      >
+                        <img src="/img/github-icon.svg" alt="" />
+                      </div>
+                      <div
+                        onClick={() =>
+                          window.open(
+                            "https://www.linkedin.com/in/%C3%B6mer-kulu%C3%A7-8a03291b6/",
+                            "_blank"
+                          )
+                        }
+                        className="linkedin-area"
+                      >
+                        <img src="/img/linkedin-icon.svg" alt="" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
+        {buttonVisible && (
+          <motion.button
+            className={`contact-toggle-button ${buttonFade ? "fade-out-button" : ""}`}
+            onClick={handleButtonClick}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {buttonText}
+          </motion.button>
+        )}
       </div>
     </>
   );
 }
+
+
 
 
 function NotFound() {
