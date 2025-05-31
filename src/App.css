@@ -279,6 +279,7 @@ a {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  /* prevent iOS bounce effect */
 }
 
 .home-section {
@@ -1686,183 +1687,11 @@ a {
 
 
 
-  /* about-desktop-start */
+  /* about-start */
 
-  .about-header {
-    text-align: center;
-    font-size: 30px;
-  }
 
-  .about-animation-wrapper {
-    width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-    background-color: #ffffff;
-  }
 
-  .about-section {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    margin-top: 80px;
-  }
-
-  .about-box {
-    position: absolute;
-    width: 350px;
-    height: 250px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    top: 50%;
-    left: 50%;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 2;
-  }
-
-  .about-box.visible {
-    animation: circleToSquareToCorner 2s ease-out forwards;
-    animation-delay: calc(var(--i) * 0.3s);
-    animation-fill-mode: both;
-    visibility: visible;
-  }
-
-  .box-1 {
-    --final-top: 7%;
-    --final-left: 25%;
-  }
-
-  .box-2 {
-    --final-top: 7%;
-    --final-left: 75%;
-  }
-
-  .box-3 {
-    --final-top: 50%;
-    --final-left: 25%;
-  }
-
-  .box-4 {
-    --final-top: 50%;
-    --final-left: 75%;
-  }
-
-  @keyframes circleToSquareToCorner {
-    0% {
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-    }
-
-    20% {
-      transform: translate(-50%, -50%) scale(1.05);
-      opacity: 1;
-      border-radius: 50%;
-    }
-
-    40% {
-      border-radius: 20px;
-    }
-
-    100% {
-      top: var(--final-top);
-      left: var(--final-left);
-      transform: translate(-50%, -50%) scale(1);
-      border-radius: 15px;
-    }
-  }
-
-  /* GÖZ */
-  .eye-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 99;
-    animation: fadeInEye 1s ease forwards;
-  }
-
-  @keyframes fadeInEye {
-    from {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.5);
-    }
-
-    to {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-  }
-
-  .eye {
-    width: 160px;
-    height: 160px;
-    background: radial-gradient(circle, #fff, #ddd);
-    border: 4px solid #000;
-    border-radius: 50%;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4);
-  }
-
-  .eyelid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    z-index: 3;
-    animation: blink 6s infinite;
-    transform-origin: top;
-  }
-
-  @keyframes blink {
-
-    0%,
-    92%,
-    100% {
-      transform: scaleY(0);
-    }
-
-    95% {
-      transform: scaleY(1);
-    }
-
-    98% {
-      transform: scaleY(0);
-    }
-  }
-
-  .iris {
-    position: absolute;
-    top: 60px;
-    left: 60px;
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(circle, #0f4c75, #000);
-    border-radius: 50%;
-    transition: transform 0.2s ease-out;
-    z-index: 2;
-  }
-
-  .eye-reflection {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 25px;
-    height: 25px;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* about-desktop-end */
-
+  /* about-end */
 
 
 
