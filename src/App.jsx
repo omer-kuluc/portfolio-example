@@ -249,9 +249,11 @@ function Home() {
 
 
 
-
 function About() {
   const sectionRefs = useRef([]);
+  const eyeRef = useRef(null);
+  const irisRef = useRef(null);
+  const [allVisible, setAllVisible] = useState(false);
 
   const sections = [
     {
@@ -276,7 +278,6 @@ function About() {
     }
   ];
 
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -285,6 +286,14 @@ function About() {
             entry.target.classList.add("visible");
           }
         });
+
+        const allVisible = sectionRefs.current.every(
+          (ref) => ref && ref.classList.contains("visible")
+        );
+
+        if (allVisible) {
+          setTimeout(() => setAllVisible(true), 2000);
+        }
       },
       { threshold: 0.2 }
     );
@@ -295,6 +304,38 @@ function About() {
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!eyeRef.current || !irisRef.current) return;
+
+      const eye = eyeRef.current.getBoundingClientRect();
+      const centerX = eye.left + eye.width / 2;
+      const centerY = eye.top + eye.height / 2;
+
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+
+      const maxDistance = 30;
+      const distance = Math.min(
+        maxDistance,
+        Math.sqrt(deltaX ** 2 + deltaY ** 2)
+      );
+
+      const angle = Math.atan2(deltaY, deltaX);
+
+      const irisX = Math.cos(angle) * distance;
+      const irisY = Math.sin(angle) * distance;
+
+      irisRef.current.style.transform = `translate(${irisX}px, ${irisY}px)`;
+    };
+
+    if (allVisible) {
+      window.addEventListener("mousemove", handleMouseMove);
+    }
+
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [allVisible]);
 
   return (
     <>
@@ -313,10 +354,25 @@ function About() {
             </div>
           ))}
         </div>
+
+        {allVisible && (
+          <div className="eye-container">
+            <div className="eye" ref={eyeRef}>
+              <div className="eyelid"></div>
+              <div className="iris" ref={irisRef}></div>
+              <div className="eye-reflection"></div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
 }
+
+
+
+
+
 
 function Works({ data }) {
   const [selectedProject, setSelectedProject] = useState(null);
