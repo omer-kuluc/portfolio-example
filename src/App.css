@@ -747,6 +747,44 @@ a {
 }
 
 
+
+
+/* Toggle Button */
+.contact-toggle-button {
+  background-color: #0cdcf7;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-weight: bold;
+  color: #0f1115;
+  cursor: pointer;
+  position: absolute;
+  left: 15%;
+  bottom: 135px;
+  font-size: 1rem;
+  transition: all 1.5s ease;
+  text-align: center;
+}
+
+/* Fade-out effect */
+.fade-out-button {
+  animation: fadeOutSoft 3.0s ease forwards;
+}
+
+@keyframes fadeOutSoft {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+  }
+}
+
+
 /*contact-mobile-end*/
 
 
@@ -1360,6 +1398,15 @@ a {
     width: 40x;
     height: 40px;
   }
+
+
+  /* Toggle Button */
+  .contact-toggle-button {
+    left: 35%;
+    bottom: 240px;
+  }
+
+
 
   /*contact-tablet-end*/
 
