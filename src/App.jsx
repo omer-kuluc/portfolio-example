@@ -505,7 +505,7 @@ function Contact() {
     if (buttonText === "So, you can write..") {
       const fadeTimer = setTimeout(() => {
         setButtonFade(true);
-      }, 3000); // 1.8 saniye sonra buton yavaşça kaybolacak
+      }, 3500);
 
       return () => clearTimeout(fadeTimer);
     }
@@ -530,12 +530,12 @@ function Contact() {
               animate={{
                 opacity: 1,
                 scale: 1,
-                transition: { duration: 2, ease: "easeOut" },
+                transition: { duration: 1.5, ease: "easeOut" },
               }}
               exit={{
                 opacity: 0,
                 scale: 0,
-                transition: { duration: 1.2, ease: "easeInOut" },
+                transition: { duration: 0.8, ease: "easeInOut" },
               }}
               onAnimationComplete={() => setAnimationEnded(true)}
             >

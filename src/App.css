@@ -634,7 +634,6 @@ a {
 } */
 
 
-/*contact-mobile-start*/
 .box {
   width: 100px;
   height: 100px;
@@ -642,6 +641,7 @@ a {
   border-radius: 5px;
 }
 
+/*contact-mobile-start*/
 .contact-inner {
   min-height: 100vh;
   padding: 5px 10px;
@@ -1490,7 +1490,7 @@ a {
     max-width: 600px;
     margin-inline: auto;
     opacity: 0;
-    animation: fadeInScale 2s ease forwards;
+    animation: fadeInScale 7.5s ease forwards;
   }
 
   .profil-photo {
@@ -1649,24 +1649,33 @@ a {
 
   /* Toggle Button */
   .contact-toggle-button {
-    background-color: #0cdcf7;
+    background-color: #ccc;
     border: none;
     border-radius: 10px;
     padding: 12px 24px;
     font-weight: bold;
-    color: #0f1115;
+    color: #0e383d;
     cursor: pointer;
     position: absolute;
     left: 40%;
     bottom: 230px;
     font-size: 1rem;
-    transition: all 1.5s ease;
+    transition: all 0.5s ease-in-out;
     text-align: center;
+    border: 2px solid transparent;
+
+  }
+
+
+  .contact-toggle-button:hover {
+    background-color: #0e383d;
+    color: White;
+    border: 2px solid white;
   }
 
   /* Fade-out effect */
   .fade-out-button {
-    animation: fadeOutSoft 3.0s ease forwards;
+    animation: fadeOutSoft 4.5s ease forwards;
   }
 
   @keyframes fadeOutSoft {
