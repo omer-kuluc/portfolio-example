@@ -1159,7 +1159,7 @@ a {
 
   /* ✅ Ortadaki aktif bubble */
   .bubble.center {
-    bottom: -145px;
+    bottom: -165px;
     transition: transform 1.5s ease-in-out;
 
     &:hover {
@@ -1493,7 +1493,7 @@ a {
     max-width: 600px;
     margin-inline: auto;
     opacity: 0;
-    animation: fadeInScale 7.5s ease forwards;
+    animation: fadeInScale 5s ease forwards;
   }
 
   .profil-photo {
@@ -1660,7 +1660,7 @@ a {
 
   /* Fade-out effect */
   .fade-out-button {
-    animation: fadeOutSoft 6.5s ease-in-out forwards;
+    animation: fadeOutSoft 5.75s ease-in-out forwards;
   }
 
   @keyframes fadeOutSoft {
@@ -1691,13 +1691,4 @@ a {
 
 
 
-}
-
-@media (width> 1440px) {
-
-  /* Toggle Button */
-  /* .contact-toggle-button {
-    left: 20%;
-    bottom: 55%;
-  } */
 }
