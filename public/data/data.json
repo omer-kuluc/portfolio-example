@@ -45,7 +45,7 @@
       "title": "Kanban Task App",
       "image": "/img/kanban-task-management-image.png",
       "info": "This Kanban Task App is a fully responsive task management platform built with React. It enables users to visualize, manage, and update their workflow using a three-column layout: To Do, In Progress, and Done. Each task is encapsulated as a modular card component, displaying task-specific metadata such as title, priority level, and status indicators. The application leverages the react-beautiful-dnd library to implement intuitive drag-and-drop functionality between columns. State is maintained using useState and updated through useEffect when necessary. New boards and columns can be created dynamically through modal forms, while existing tasks can be edited or deleted. The app features localStorage integration to persist board data across sessions. It demonstrates advanced component structuring, drag event handling, dynamic form rendering, and user-centric UI logic.",
-      "githubLink": "https://github.com/acunmedyaakademi/Alfa-KanbanWepApp",
+      "githubLink": "https://github.com/omer-kuluc/Alfa-KanbanWepApp",
       "liveLink": "https://alfa-kanban-wep-app.vercel.app/"
     },
     {
