@@ -507,7 +507,7 @@ function Contact() {
         setButtonFade(true);
         setTimeout(() => {
           setButtonRemoved(true); // ✅ tamamen kaldır
-        }, 6500);
+        }, 6750);
       }, 500); // yazı biraz görünür kalmalı
       return () => clearTimeout(fadeTimer);
     }
